@@ -1,0 +1,121 @@
+@font-face {
+    font-family: JosefinSans-Light;
+    src: url(./font/JosefinSans-Light.ttf);
+}
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(./images/summer.jpg);
+    background-size: cover;
+    font-family: JosefinSans-Light;
+}
+
+.player{
+    width: 380px;
+    height: 280px;
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 5px 10px 15px rgb(54,79,60,0.4);
+    transition: all 0.5s ease-in-out;
+}
+
+.player .img{
+    width: 100%;
+    height: 100%;
+    user-select: none;
+
+}
+.player .img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    user-select: none;
+    transition: all 0.5s ease-in-out;
+}
+.info{
+    width: 100%;
+    height: 120px;
+    background-color: #fff;
+    position: absolute;
+    bottom: 0;
+    padding: 10px 0;
+    transform: translateY(35px);
+    transition: all 0.5s ease-in-out;
+}
+
+.player:hover .info{
+    transform: translateY(0px);
+}
+.player:hover .img img{
+    transform: scale(1.1);
+}
+.info .progress{
+    height: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    
+}
+.info .progress #start,
+.info .progress #end{
+    margin: 0 12px;
+    user-select: none;
+}
+.info .progress #bar{
+    width: 300px;
+    height: 8px;
+    border-radius: 4px ;
+    background-color: rgb(222,230,238);
+
+}
+.info .song-detail{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.info .song-detail span{
+    margin: 4px 0;
+    height: 16px;
+    user-select: none;
+}
+.info .song-detail #title{
+    font-size:16px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+.info .song-detail #author{
+    letter-spacing: 1px;
+}
+.info .controls {
+    margin-top:20px;
+    padding: 0 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+}
+.info .controls .play span{
+    margin: 0 10px;
+    cursor: pointer;
+}
+.info .controls span{
+    user-select: none;
+}
+/* 隐藏audio标签 */
+.audio{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+}
