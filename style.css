@@ -12,8 +12,8 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url(./images/summer.jpg);
-    background-size: cover;
+    /* background: url("./images/summer.jpg"); */
+    /* background-size: cover;  */
     font-family: JosefinSans-Light;
 }
 
@@ -132,6 +132,8 @@ body{
 }
 /* 隐藏audio标签 */
 .audio{
+    width: 0;
+    height: 0;
     position: absolute;
     top: 0;
     left: 0;

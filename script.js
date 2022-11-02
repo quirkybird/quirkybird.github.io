@@ -4,11 +4,12 @@ const doc =document;
 const songsList = [
 
 {
-        id : 'xxx-01',
-        title:'安河桥',
-        author: 'GAI',
-        path: './music/安河桥.mp3',
-        bgPath:'./images/2.png'
+    id : 'xxx-01',
+    title: '江湖流 (Live)',
+    author: 'KEY.L刘聪',
+    path: './music/KEY.L刘聪 - 江湖流 (Live).mp3',
+    bgPath:'./images/5.jpg',
+    bbgPath:'./images/rap.jpg'
         
 },
 {
@@ -17,7 +18,8 @@ const songsList = [
     title: '没什么大不了（なんでもないや）',
     author: 'Maxone,夏璃夜',
     path: './music/Maxone,夏璃夜 - 没什么大不了.mp3',
-    bgPath:'./images/1.jpg'
+    bgPath:'./images/1.jpg',
+    bbgPath:'./images/summer.jpg'
 },
     
 {
@@ -26,12 +28,31 @@ const songsList = [
     title: 'いつも何度でも',
     author: '伊藤サチコ',
     path: './music/伊藤サチコ - いつも何度でも.mp3',
-    bgPath:'./images/3.webp'
+    bgPath:'./images/3.webp',
+    bbgPath:'./images/summer.jpg'
+},
+{
+    id : 'xxx-04',
+    title: 'Wild West',
+    author: '那奇沃夫,kkluv',
+    path: './music/那奇沃夫,kkluv - Wild West.mp3',
+    bgPath:'./images/4.webp',
+    bbgPath:'./images/rap.jpg'
+},
+{
+    id : 'xxx-05',
+        title:'安河桥',
+        author: 'GAI',
+        path: './music/安河桥.mp3',
+        bgPath:'./images/2.png',
+        bbgPath:'./images/summer.jpg'
 }
+
 ];
 
 //获取DOM元素
 const audio = doc.querySelector('#audio');//播放器
+const bbg = doc.querySelector('body');//背景
 const bgimg = doc.querySelector('#bg-img');//插图
 const controls = doc.querySelector('#controls');//按钮区域
 const title = doc.querySelector('#title');//歌曲名
@@ -114,6 +135,8 @@ function render(song){
     bgimg.src = song.bgPath;
     audio.volume = 1;//声音0-1
     audio.src = song.path;//音乐资源地址
+    bbg.style.backgroundImage = "url("+song.bbgPath+")";//背景图片
+    bbg.style.backgroundSize = "cover";
 
 }
 //播放/暂停 功能
