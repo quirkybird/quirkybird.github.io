@@ -154,7 +154,7 @@ function songPlay(){
       isPlay=true;
       playBtn.classList.add('icon-24gf-pause2');
       playBtn.classList.remove('icon-24gf-play');
-      audio.play();
+      audio.play();  
 }
 //暂停
 function songPause(){
