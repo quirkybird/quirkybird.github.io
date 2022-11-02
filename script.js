@@ -65,6 +65,7 @@ function conversion (value) {
     audio.currentTime = p * audio.duration
     audio.play()
   })
+  
 
   setInterval(() => {
     start.innerHTML = conversion(audio.currentTime)
