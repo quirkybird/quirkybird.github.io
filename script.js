@@ -2,6 +2,7 @@ const doc =document;
 
 //歌曲信息
 const songsList = [
+
 {
         id : 'xxx-01',
         title:'安河桥',
@@ -37,6 +38,38 @@ const title = doc.querySelector('#title');//歌曲名
 const author = doc.querySelector('#author');//作者
 const playBtn = doc.querySelector('#play');//播放按钮
 const voiceBtn = doc.querySelector('#voice');//声音开关
+const start = doc.querySelector('#start');//开始时间
+const end = doc.querySelector('#end');//结束时间
+const bar = doc.querySelector('#bar');//进度条
+const now = doc.querySelector('#now');//进度条实时
+
+function conversion (value) {
+    let minute = Math.floor(value / 60)
+    minute = minute.toString().length === 1 ? ('0' + minute) : minute
+    let second = Math.round(value % 60)
+    second = second.toString().length === 1 ? ('0' + second) : second
+    return `${minute}:${second}`
+  }
+
+    audio.onloadedmetadata = function () {
+    end.innerHTML = conversion(audio.duration)
+    start.innerHTML = conversion(audio.currentTime)
+  }
+
+    bar.addEventListener('click', function (event) {
+    let coordStart = this.getBoundingClientRect().left
+    let coordEnd = event.pageX
+    let p = (coordEnd - coordStart) / this.offsetWidth
+    now.style.width = p.toFixed(3) * 100 + '%'
+
+    audio.currentTime = p * audio.duration
+    audio.play()
+  })
+
+  setInterval(() => {
+    start.innerHTML = conversion(audio.currentTime)
+    now.style.width = audio.currentTime / audio.duration.toFixed(3) * 100 + '%'
+  }, 1000)
 
 //当前播放歌曲
 let curSongIndex = 0;

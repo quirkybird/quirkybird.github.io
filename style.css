@@ -75,8 +75,27 @@ body{
     height: 8px;
     border-radius: 4px ;
     background-color: rgb(222,230,238);
+    position: relative;
 
 }
+#now {
+    position: absolute;
+    left: 0;
+    display: inline-block;
+    height: 8px;
+    width: 0%;
+    border-radius: 4px ;
+    background: rgb(92,179,204);
+  }
+
+  /* .now::after {
+    content: '';
+    position: absolute;
+    left: 100%;
+    width: 3px;
+    height: 7px;
+    background-color: lightblue;
+  } */
 .info .song-detail{
     display: flex;
     justify-content: center;
