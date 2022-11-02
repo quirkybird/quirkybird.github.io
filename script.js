@@ -1,5 +1,4 @@
 const doc =document;
-
 //歌曲信息
 const songsList = [
 
@@ -8,8 +7,8 @@ const songsList = [
     title: '江湖流 (Live)',
     author: 'KEY.L刘聪',
     path: './music/KEY.L刘聪 - 江湖流 (Live).mp3',
-    bgPath:'./images/5.jpg',
-    bbgPath:'./images/rap.jpg'
+    bgPath:'https://s2.loli.net/2022/11/02/d2KhzqHsatiSxWm.jpg',
+    bbgPath:'https://s2.loli.net/2022/11/02/E4ApjPh3nwNfTWG.jpg'
         
 },
 {
@@ -18,8 +17,8 @@ const songsList = [
     title: '没什么大不了（なんでもないや）',
     author: 'Maxone,夏璃夜',
     path: './music/Maxone,夏璃夜 - 没什么大不了.mp3',
-    bgPath:'./images/1.jpg',
-    bbgPath:'./images/summer.jpg'
+    bgPath:'https://s2.loli.net/2022/11/02/FoikyVNn3dvGuZK.jpg',
+    bbgPath:'https://s2.loli.net/2022/11/02/dS7uaMRijxTI43P.jpg'
 },
     
 {
@@ -28,24 +27,24 @@ const songsList = [
     title: 'いつも何度でも',
     author: '伊藤サチコ',
     path: './music/伊藤サチコ - いつも何度でも.mp3',
-    bgPath:'./images/3.webp',
-    bbgPath:'./images/summer.jpg'
+    bgPath:'https://s2.loli.net/2022/11/02/p6kYAtjVJamUHGo.webp',
+    bbgPath:'https://s2.loli.net/2022/11/02/dS7uaMRijxTI43P.jpg'
 },
 {
     id : 'xxx-04',
     title: 'Wild West',
     author: '那奇沃夫,kkluv',
     path: './music/那奇沃夫,kkluv - Wild West.mp3',
-    bgPath:'./images/4.webp',
-    bbgPath:'./images/rap.jpg'
+    bgPath:'https://s2.loli.net/2022/11/02/f5DaJtNlzM7oZQu.webp',
+    bbgPath:'https://s2.loli.net/2022/11/02/E4ApjPh3nwNfTWG.jpg'
 },
 {
     id : 'xxx-05',
         title:'安河桥',
         author: 'GAI',
         path: './music/安河桥.mp3',
-        bgPath:'./images/2.png',
-        bbgPath:'./images/summer.jpg'
+        bgPath:'https://s2.loli.net/2022/11/02/UBsay9vbnDjAcMg.png',
+        bbgPath:'https://s2.loli.net/2022/11/02/dS7uaMRijxTI43P.jpg'
 }
 
 ];
