@@ -98,6 +98,7 @@ let isPlay = false;
 //初始化
 function init(){
     render(songsList[curSongIndex]);
+    playOrder();
 }
 
 //按钮事件
@@ -138,6 +139,16 @@ function render(song){
     bbg.style.backgroundSize = "cover";
 
 }
+//顺序播放
+audio.onended = function playOrder(){
+    if(curSongIndex > 0 || curSongIndex < songsList.length-1)
+    {
+            curSongIndex++;
+            render(songsList[curSongIndex]);
+            audio.play();
+    }
+}
+
 //播放/暂停 功能
 function togglePlay(){
     if( !isPlay){
@@ -193,13 +204,14 @@ function voiceControl(){
 //声音开
 function voiceOn(){
         audio.volume = 1;
-        voiceBtn.classList.remove('icon-yinliang');
-        voiceBtn.classList.add('icon-shengyinguanbi');
+        voiceBtn.classList.remove('icon-shengyinguanbi');
+        voiceBtn.classList.add('icon-yinliang');
     }      
 function voiceOff(){
     audio.volume = 0;
-    voiceBtn.classList.remove('icon-shengyinguanbi');
-    voiceBtn.classList.add('icon-yinliang');
+    voiceBtn.classList.add('icon-shengyinguanbi');
+    voiceBtn.classList.remove('icon-yinliang');
+    
 }
 
 

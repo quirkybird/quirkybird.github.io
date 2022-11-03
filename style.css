@@ -13,9 +13,16 @@ body{
     justify-content: center;
     align-items: center;
     /* background: url("./images/summer.jpg"); */
-    /* background-size: cover;  */
+    /* background-size: cover;  */ 
     font-family: JosefinSans-Light;
 }
+/* .songlist{
+    width: 190px;
+    height: 280px;
+    background-color: #add5a2;
+    position: relative;
+    right: 30px;
+} */
 
 .player{
     width: 380px;
@@ -24,7 +31,7 @@ body{
     border-radius: 5px;
     overflow: hidden;
     box-shadow: 5px 10px 15px rgb(54,79,60,0.4);
-    transition: all 0.5s ease-in-out;
+    /* transition: all 0.5s ease-in-out; */
 }
 
 .player .img{
@@ -114,6 +121,11 @@ body{
 }
 .info .song-detail #author{
     letter-spacing: 1px;
+}
+
+.info .controls #navigation:hover{
+    color:#8abcd1;
+    transition: 0.5s;
 }
 .info .controls {
     margin-top:20px;
