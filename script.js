@@ -62,6 +62,7 @@ const start = doc.querySelector('#start');//开始时间
 const end = doc.querySelector('#end');//结束时间
 const bar = doc.querySelector('#bar');//进度条
 const now = doc.querySelector('#now');//进度条实时
+const model = doc.querySelector('#mode');//播放模式
 
 function conversion (value) {
     let minute = Math.floor(value / 60)
@@ -98,7 +99,15 @@ let isPlay = false;
 //初始化
 function init(){
     render(songsList[curSongIndex]);
-    playOrder();
+    audio.onended = function playOrder(){
+        if(curSongIndex >= 0 && curSongIndex < songsList.length-1)
+        {
+        curSongIndex++;
+        render(songsList[curSongIndex]);
+        songPlay();
+        }
+        } 
+   
 }
 
 //按钮事件
@@ -120,7 +129,7 @@ controls.addEventListener('click',e =>{
                 nextSong();
             break;
             case 'mode': //播放模式
-            //TODO
+                playModel();
             break;
             default:
                 break;
@@ -139,15 +148,116 @@ function render(song){
     bbg.style.backgroundSize = "cover";
 
 }
-//顺序播放
-audio.onended = function playOrder(){
-    if(curSongIndex > 0 || curSongIndex < songsList.length-1)
-    {
+let i= 0;
+function playModel(){
+    let modelicon = ["icon-shunxubofang","icon-ziyuanldpi","icon-danquxunhuan","icon-ziyuan"];
+    switch(i){
+        case 0:
+
+            model.classList.remove(modelicon[i]);
+            model.classList.add(modelicon[++i]);
+            audio.onended = function loop(){
+                if(curSongIndex >= 0 && curSongIndex < songsList.length-1)
+                {
+                        curSongIndex++;
+                        render(songsList[curSongIndex]);
+                        songPlay();
+                        
+                        }
+                if(curSongIndex == songsList.length-1){
+                        curSongIndex = 0;
+                        render(songsList[curSongIndex]);
+                        songPlay();
+                }
+             
+            }
+            break;
+
+        case 1:
+            model.classList.remove(modelicon[i]);
+            model.classList.add(modelicon[++i]);
+            //单曲循环
+            audio.onended = function solo(){
+            songPlay();
+            }
+            break;
+
+        case 2:
+        //随机播放
+            model.classList.remove(modelicon[i]);
+            model.classList.add(modelicon[++i]);
+            audio.onended = function songRandom(){
+
+            curSongIndex = Math.floor(Math.random()*(songsList.length));
+
+            render(songsList[curSongIndex]);
+
+            songPlay();
+            }
+            break;
+
+        case 3:
+            model.classList.remove(modelicon[i]);
+            model.classList.add(modelicon[0]);
+             //顺序播放
+            audio.onended = function playOrder(){
+            if(curSongIndex >= 0 && curSongIndex < songsList.length-1)
+            {
             curSongIndex++;
             render(songsList[curSongIndex]);
-            audio.play();
+            songPlay();
+            }
+            } 
+              i = 0;
+             break;
+
+        default:
+                break;
+
     }
+
 }
+//  //顺序播放
+// audio.onended = function playOrder(){
+//     if(curSongIndex >= 0 && curSongIndex < songsList.length-1)
+//     {
+//             curSongIndex++;
+//             render(songsList[curSongIndex]);
+//             songPlay();
+//     }
+// }
+// audio.onended = function loop(){
+//     if(curSongIndex >= 0 && curSongIndex < songsList.length-1)
+//     {
+//             curSongIndex++;
+//             render(songsList[curSongIndex]);
+//             songPlay();
+            
+//             }
+//     if(curSongIndex == songsList.length-1){
+//             curSongIndex = 0;
+//             render(songsList[curSongIndex]);
+//             songPlay();
+//     }
+ 
+// }
+
+// //单曲循环
+// audio.onended = function solo(){
+//     songPlay();
+// }
+
+
+// //随机播放
+// audio.onended = function songRandom(){
+
+//     curSongIndex = Math.floor(Math.random()*(songsList.length));
+
+//     render(songsList[curSongIndex]);
+
+//     songPlay();
+
+// }
 
 //播放/暂停 功能
 function togglePlay(){
