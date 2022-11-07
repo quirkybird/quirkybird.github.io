@@ -144,8 +144,8 @@ function render(song) {
     bgimg.src = song.bgPath;
     audio.volume = 1;//声音0-1
     audio.src = song.path;//音乐资源地址
-    bbg.style.backgroundImage = "url(" + song.bbgPath + ")";//背景图片
-    bbg.style.backgroundSize = "cover";
+    // bbg.style.backgroundImage = "url(" + song.bbgPath + ")";//背景图片
+    // bbg.style.backgroundSize = "cover";
 
 }
 
