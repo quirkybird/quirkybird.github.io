@@ -27,7 +27,7 @@ window.onload=function () {
             break;
     }
     let iMonth = parseInt(oDt.getMonth()) + 1;
-    document.getElementById("date").innerHTML = "<span>" + oDt.getFullYear() + "年" + iMonth + "月" + oDt.getDate() + "日" + swd + "</span>";
+    document.getElementById("date").innerHTML = "<span>"+ iMonth + "月" + oDt.getDate() + "日" + " ，" +  swd + "</span>";
     showtime();
     window.setInterval("showtime ()", 1000);
 }
@@ -43,7 +43,7 @@ function showtime() {
     if (oDt.getMinutes() < 10) {
         sTime += "0" + oDt.getMinutes() + ":";
     } else {
-        sTime += oDt.getMinutes() + ": ";
+        sTime += oDt.getMinutes() + ":";
     }
     if (oDt.getSeconds() < 10) {
         sTime += "0" + oDt.getSeconds();

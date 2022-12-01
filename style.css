@@ -2,6 +2,10 @@
     font-family: JosefinSans-Light;
     src: url(./font/JosefinSans-Light.ttf);
 }
+@font-face{
+    font-family: PingFang;
+    src: url('./font/苹方黑体-准-简.ttf');
+}
 *{
     margin:0;
     padding: 0;
@@ -12,26 +16,26 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to right, #4b6cb7, #182848);
-    /* background-size: cover;  */ 
-    font-family: JosefinSans-Light;
+    background: url('https://www.coolku.cc/api/bing/mo.php');
+    /* background: linear-gradient(to right, #4b6cb7, #182848); */
+    background-size: cover;  
+    /* font-family: JosefinSans-Light; */
     position: relative;
 }
 .time-bar{
-    width: 710px;
-    height: 51px;
+    width: 1050px;
     position: absolute;
-    top:70px;
+    top:10px;
     display: flex;
-    justify-content:space-between;
-    font-size: 50px;
-    color: #CCC;
-    overflow: hidden;
+    flex-direction: column;
+   align-items: center;
+    font-size: 70px;
+    font-weight:900;
+    font-family:PingFang;
+    color: #F0F8FF;
+    user-select: none;
+    
 }
-#time{
-    line-height: 51px;
-}
-
 
 /* .songlist{
     width: 190px;
