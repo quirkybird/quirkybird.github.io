@@ -1,5 +1,5 @@
-let iCount=2;
-window.onload=function () {
+let iCount = 2;
+window.onload = function () {
     let oDt = new Date();
     let swd = "";
     let iweekDay = oDt.getDay();
@@ -27,7 +27,7 @@ window.onload=function () {
             break;
     }
     let iMonth = parseInt(oDt.getMonth()) + 1;
-    document.getElementById("date").innerHTML = "<span>"+ iMonth + "月" + oDt.getDate() + "日" + " ，" +  swd + "</span>";
+    document.getElementById("date").innerHTML = "<span>" + iMonth + "月" + oDt.getDate() + "日" + " ，" + swd + "</span>";
     showtime();
     window.setInterval("showtime ()", 1000);
 }

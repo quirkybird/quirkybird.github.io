@@ -11,10 +11,7 @@
     padding: 0;
     box-sizing: border-box;   
 }
-img {
-    -webkit-filter: grayscale(100%); /* Chrome, Safari, Opera */
-    filter: grayscale(100%);
-}
+
 body{
     height: 100vh;
     display: flex;
@@ -25,6 +22,7 @@ body{
     background-size: cover;  
     /* font-family: JosefinSans-Light; */
     position: relative;
+    font-family: PingFang;
 }
 .time-bar{
     width: 1050px;
@@ -179,4 +177,10 @@ body{
     left: 0;
     z-index: -1;
 
+}
+#img-loction{
+    position: absolute;
+    bottom: 100px;
+    left: 100px;
+    color: #F0F8FF;
 }
