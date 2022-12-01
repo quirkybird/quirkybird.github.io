@@ -11,6 +11,10 @@
     padding: 0;
     box-sizing: border-box;   
 }
+img {
+    -webkit-filter: grayscale(100%); /* Chrome, Safari, Opera */
+    filter: grayscale(100%);
+}
 body{
     height: 100vh;
     display: flex;
