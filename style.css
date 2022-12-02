@@ -184,3 +184,14 @@ body{
     left: 100px;
     color: #F0F8FF;
 }
+#img-loction a:link{
+   text-decoration: none;
+    color: #F0F8FF;
+}
+#img-loction a:visited{
+    color: #F0F8FF;
+}
+#img-loction a:hover{
+    text-decoration:underline;
+    color:cornflowerblue;
+}
