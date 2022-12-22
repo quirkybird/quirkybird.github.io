@@ -46,13 +46,14 @@ const songsList = [
         bgPath: 'https://s2.loli.net/2022/11/02/UBsay9vbnDjAcMg.png',
         bbgPath: 'https://s2.loli.net/2022/11/02/dS7uaMRijxTI43P.jpg'
     }
+    
 
 ];
 
 //获取DOM元素
 const audio = doc.querySelector('#audio');//播放器
 const bbg = doc.querySelector('body');//背景
-const bgimg = doc.querySelector('#bg-img');//插图
+const bgimg = doc.querySelector('.img');//插图
 const controls = doc.querySelector('#controls');//按钮区域
 const title = doc.querySelector('#title');//歌曲名
 const author = doc.querySelector('#author');//作者
@@ -63,6 +64,7 @@ const end = doc.querySelector('#end');//结束时间
 const bar = doc.querySelector('#bar');//进度条
 const now = doc.querySelector('#now');//进度条实时
 const model = doc.querySelector('#mode');//播放模式
+// 进度条功能
 function conversion(value) {
     let minute = Math.floor(value / 60)
     minute = minute.toString().length === 1 ? ('0' + minute) : minute
@@ -91,6 +93,75 @@ setInterval(() => {
     now.style.width = audio.currentTime / audio.duration.toFixed(3) * 100 + '%'
 }, 1000)
 
+//我的喜欢功能
+let songsNumbers = '';
+let j = 5;
+let love = 'https://cloudmusicapi-v5j5.vercel.app/likelist?uid=1323867134'
+let request2 = new XMLHttpRequest();
+request2.open('GET', love);
+request2.withCredentials = true;
+request2.responseType = 'json';
+request2.send();
+request2.onload = function() {
+    let loveList = request2.response;
+    console.log(loveList)
+    seekMusic(loveList);
+    
+
+}
+
+function seekMusic(loveList){
+    console.log(loveList['ids'].length)
+    for(let i = 0;loveList['ids'].length >= i;i++){
+        songsNumbers = loveList['ids'][i];
+        console.log(songsNumbers);
+        musicurl();
+        musicDetials();
+        
+    } 
+        
+}
+
+function musicurl (){
+let musicurl = 'https://cloudmusicapi-v5j5.vercel.app/song/url?id=' + songsNumbers;
+let request = new XMLHttpRequest();
+request.open('GET', musicurl);
+request.responseType = 'json';
+request.send();
+request.onload = function() {
+    let lovemusic = request.response;
+    addlovemusic(lovemusic);
+
+}
+}
+function musicDetials(){
+let musicDetials = 'https://cloudmusicapi-v5j5.vercel.app/song/detail?ids=' + songsNumbers;
+let request1 = new XMLHttpRequest();
+request1.open('GET',musicDetials);
+request1.responseType = 'json';
+request1.send();
+request1.onload = function(){
+    let lovemusic1 = request1.response;
+    addlovemusicdetials(lovemusic1);
+}
+}
+
+let addlovemusicdetials = function(lovemusic1){
+    songsList[j]['title'] = lovemusic1["songs"][0]["name"];
+    songsList[j]['author'] = lovemusic1["songs"][0]["ar"][0]['name'];
+    songsList[j]['bgPath'] = lovemusic1["songs"][0]["al"]["picUrl"];
+    j++;
+  }
+
+
+  let addlovemusic = function(lovemusic){
+    addObject(j);
+    songsList[j]['path'] = lovemusic["data"][0]["url"];
+  }
+  function addObject(value){
+    if(songsList[value] === undefined)
+        songsList[value] = {};
+  }
 //当前播放歌曲
 let curSongIndex = 0;
 //是否在播放
@@ -141,11 +212,10 @@ controls.addEventListener('click', e => {
 function render(song) {
     title.innerHTML = song.title;
     author.innerHTML = song.author;
-    bgimg.src = song.bgPath;
     audio.volume = 1;//声音0-1
     audio.src = song.path;//音乐资源地址
-    // bbg.style.backgroundImage = "url(" + song.bbgPath + ")";//背景图片
-    // bbg.style.backgroundSize = "cover";
+    bgimg.style.backgroundImage = "url(" + song.bgPath + ")";//背景图片
+    bgimg.style.backgroundSize = "cover";
 
 }
 
