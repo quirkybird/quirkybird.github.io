@@ -10,44 +10,42 @@ const songsList = [
         bgPath: 'https://s2.loli.net/2022/11/02/d2KhzqHsatiSxWm.jpg',
         bbgPath: 'https://s2.loli.net/2022/11/02/E4ApjPh3nwNfTWG.jpg'
 
-    },
-    {
-
-        id: 'xxx-02',
-        title: '没什么大不了（なんでもないや）',
-        author: 'Maxone,夏璃夜',
-        path: './music/Maxone,夏璃夜 - 没什么大不了.mp3',
-        bgPath: 'https://s2.loli.net/2022/11/02/FoikyVNn3dvGuZK.jpg',
-        bbgPath: 'https://s2.loli.net/2022/11/02/dS7uaMRijxTI43P.jpg'
-    },
-
-    {
-
-        id: 'xxx-03',
-        title: 'いつも何度でも',
-        author: '伊藤サチコ',
-        path: './music/伊藤サチコ - いつも何度でも.mp3',
-        bgPath: 'https://s2.loli.net/2022/11/02/p6kYAtjVJamUHGo.webp',
-        bbgPath: 'https://s2.loli.net/2022/11/02/dS7uaMRijxTI43P.jpg'
-    },
-    {
-        id: 'xxx-04',
-        title: 'Wild West',
-        author: '那奇沃夫,kkluv',
-        path: './music/那奇沃夫,kkluv - Wild West.mp3',
-        bgPath: 'https://s2.loli.net/2022/11/02/f5DaJtNlzM7oZQu.webp',
-        bbgPath: 'https://s2.loli.net/2022/11/02/E4ApjPh3nwNfTWG.jpg'
-    },
-    {
-        id: 'xxx-05',
-        title: '安河桥',
-        author: 'GAI',
-        path: './music/安河桥.mp3',
-        bgPath: 'https://s2.loli.net/2022/11/02/UBsay9vbnDjAcMg.png',
-        bbgPath: 'https://s2.loli.net/2022/11/02/dS7uaMRijxTI43P.jpg'
     }
-    
+    // {
 
+    //     id: 'xxx-02',
+    //     title: '没什么大不了（なんでもないや）',
+    //     author: 'Maxone,夏璃夜',
+    //     path: './music/Maxone,夏璃夜 - 没什么大不了.mp3',
+    //     bgPath: 'https://s2.loli.net/2022/11/02/FoikyVNn3dvGuZK.jpg',
+    //     bbgPath: 'https://s2.loli.net/2022/11/02/dS7uaMRijxTI43P.jpg'
+    // },
+
+    // {
+
+    //     id: 'xxx-03',
+    //     title: 'いつも何度でも',
+    //     author: '伊藤サチコ',
+    //     path: './music/伊藤サチコ - いつも何度でも.mp3',
+    //     bgPath: 'https://s2.loli.net/2022/11/02/p6kYAtjVJamUHGo.webp',
+    //     bbgPath: 'https://s2.loli.net/2022/11/02/dS7uaMRijxTI43P.jpg'
+    // },
+    // {
+    //     id: 'xxx-04',
+    //     title: 'Wild West',
+    //     author: '那奇沃夫,kkluv',
+    //     path: './music/那奇沃夫,kkluv - Wild West.mp3',
+    //     bgPath: 'https://s2.loli.net/2022/11/02/f5DaJtNlzM7oZQu.webp',
+    //     bbgPath: 'https://s2.loli.net/2022/11/02/E4ApjPh3nwNfTWG.jpg'
+    // },
+    // {
+    //     id: 'xxx-05',
+    //     title: '安河桥',
+    //     author: 'GAI',
+    //     path: './music/安河桥.mp3',
+    //     bgPath: 'https://s2.loli.net/2022/11/02/UBsay9vbnDjAcMg.png',
+    //     bbgPath: 'https://s2.loli.net/2022/11/02/dS7uaMRijxTI43P.jpg'
+    // }
 ];
 
 //获取DOM元素
@@ -95,73 +93,110 @@ setInterval(() => {
 
 //我的喜欢功能
 let songsNumbers = '';
-let j = 5;
-let love = 'https://cloudmusicapi-v5j5.vercel.app/likelist?uid=1323867134'
-let request2 = new XMLHttpRequest();
-request2.open('GET', love);
-request2.withCredentials = true;
-request2.responseType = 'json';
-request2.send();
-request2.onload = function() {
-    let loveList = request2.response;
-    console.log(loveList)
-    seekMusic(loveList);
-    
+let k = 0;
+let j = 1;
+let top50result1 = []; 
+const authorTop50 = 'https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/artist/top/song?id=1132392'
+let request3 = new XMLHttpRequest();
+request3.open('GET', authorTop50);
+request3.withCredentials = true;
+request3.responseType = 'json';
+request3.send();
+request3.onload = function () {
+    top50List = request3.response;
+    let top50result = '';
+    for (let m = 0; m <= top50List['songs'].length-1; m++) {
+        if(m < top50List['songs'].length-1)
+            top50result += String(top50List['songs'][m]['id'] + ',');
+        else
+        top50result += String(top50List['songs'][m]['id']);
 
+        top50result1[m] = top50List['songs'][m]['id'];
+
+    }
+    musicurl(top50result);
+    console.log(top50result)
+    setInterval(_seekMusic(top50result1), 2000);
 }
 
-function seekMusic(loveList){
-    console.log(loveList['ids'].length)
-    for(let i = 0;loveList['ids'].length >= i;i++){
-        songsNumbers = loveList['ids'][i];
-        console.log(songsNumbers);
-        musicurl();
+function loginLove() {
+    let love = 'https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/likelist?uid=32953014'
+    let request2 = new XMLHttpRequest();
+    request2.open('GET', love);
+    request2.withCredentials = true;
+    request2.responseType = 'json';
+    request2.send();
+    request2.onload = function () {
+        loveList = request2.response;
+        console.log(loveList)
+        setInterval(_seekMusic(loveList), 4000)
+
+    }
+}
+
+function _seekMusic(loveList) {
+    return function () {
+        seekMusic(loveList);
+    }
+}
+
+function seekMusic(loveList) {
+    if (k >= 0 && k <= loveList.length - 1) {
+        songsNumbers = loveList[k];
+        k++;
         musicDetials();
-        
-    } 
-        
-}
+    }
+    else {
+        clearInterval(_seekMusic(loveList));
+    }
 
-function musicurl (){
-let musicurl = 'https://cloudmusicapi-v5j5.vercel.app/song/url?id=' + songsNumbers;
-let request = new XMLHttpRequest();
-request.open('GET', musicurl);
-request.responseType = 'json';
-request.send();
-request.onload = function() {
-    let lovemusic = request.response;
-    addlovemusic(lovemusic);
 
 }
-}
-function musicDetials(){
-let musicDetials = 'https://cloudmusicapi-v5j5.vercel.app/song/detail?ids=' + songsNumbers;
-let request1 = new XMLHttpRequest();
-request1.open('GET',musicDetials);
-request1.responseType = 'json';
-request1.send();
-request1.onload = function(){
-    let lovemusic1 = request1.response;
-    addlovemusicdetials(lovemusic1);
-}
-}
 
-let addlovemusicdetials = function(lovemusic1){
-    songsList[j]['title'] = lovemusic1["songs"][0]["name"];
+function musicurl(top50) {
+    let musicurl = 'https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/song/url?id=' + top50;
+    let request = new XMLHttpRequest();
+    request.open('GET', musicurl);
+    request.responseType = 'json';
+    request.send();
+    request.onload = function () {
+        let lovemusic = request.response;
+        addlovemusic(lovemusic);
+
+    }
+}
+function addlovemusic(lovemusic) {
+    for(let m= 0; m<=50 ;m++)
+        if (songsList[m] === undefined)
+            songsList[m] = {
+                title: '',
+                author: '',
+                bgPath: '',
+                path: lovemusic["data"][m-1]["url"]
+            }
+}
+let addlovemusicdetials = function (lovemusic1) {
+    songsList[j]['title'] = String(lovemusic1["songs"][0]["name"]);
     songsList[j]['author'] = lovemusic1["songs"][0]["ar"][0]['name'];
     songsList[j]['bgPath'] = lovemusic1["songs"][0]["al"]["picUrl"];
+    console.log(j);
+    console.log(songsNumbers)
+    console.log(songsList[j]);
+    console.log('---------------------------我是分割线---------------------------')
     j++;
-  }
+}
+function musicDetials() {
+    let musicDetials = 'https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/song/detail?ids=' + songsNumbers;
+    let request1 = new XMLHttpRequest();
+    request1.open('GET', musicDetials);
+    request1.responseType = 'json';
+    request1.send();
+    request1.onload = function () {
+        let lovemusic1 = request1.response;
+        addlovemusicdetials(lovemusic1);
+    }
+}
 
-
-  let addlovemusic = function(lovemusic){
-    addObject(j);
-    songsList[j]['path'] = lovemusic["data"][0]["url"];
-  }
-  function addObject(value){
-    if(songsList[value] === undefined)
-        songsList[value] = {};
-  }
 //当前播放歌曲
 let curSongIndex = 0;
 //是否在播放
