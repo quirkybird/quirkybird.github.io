@@ -14,20 +14,15 @@
 
 body{
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background: url(' https://www.yuanxiapi.cn/api/bing/');
     /* background: linear-gradient(to right, #4b6cb7, #182848); */
     background-size: cover;  
     /* font-family: JosefinSans-Light; */
-    position: relative;
+    background-color: #617172;
     font-family: PingFang;
 }
 .time-bar{
-    width: 1050px;
-    position: absolute;
-    top:10px;
+    width: 1036px;
     display: flex;
     flex-direction: column;
    align-items: center;
@@ -36,6 +31,7 @@ body{
     font-family:PingFang;
     color: #F0F8FF;
     user-select: none;
+    margin: 50px auto;
     
 }
 #date{
@@ -56,6 +52,8 @@ body{
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 5px 10px 15px rgb(54,79,60,0.4);
+    top: 10px;
+    margin: 0 auto;
     /* transition: all 0.5s ease-in-out; */
 }
 
@@ -177,6 +175,54 @@ body{
     left: 0;
     z-index: -1;
 
+}
+#comment{
+    width: 70vw;
+    height: 1500px;
+    margin: 462px auto;
+    display: flex;
+    flex-wrap:wrap;
+    justify-content:space-around;
+    align-items: center;
+    align-content:space-around;
+    
+
+}
+#comment .musicComment{
+    width: 300px;
+    height: 200px;
+    background-color: #F0F8FF;
+    box-shadow: 5px 10px 20px #134857;
+    border-radius: 25px;
+    position: relative;
+    
+}
+#comment .musicComment img{
+    display:block;
+    border-radius: 30px;
+    width:60px;
+    height:60px;
+    position:absolute;
+    top:15px;
+    left: 15px;
+}
+#comment .musicComment .name{
+    position:absolute;
+    top:37.5px;
+    left: 95px;
+
+}
+#comment .musicComment .com{
+    position:absolute;
+    top:100px;
+    margin: 0 25px;
+
+}
+#comment .musicComment .time{
+    position:absolute;
+    bottom: 8px;
+    right: 15px;
+    
 }
 #img-loction{
     position: absolute;

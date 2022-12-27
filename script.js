@@ -47,7 +47,6 @@ const songsList = [
     //     bbgPath: 'https://s2.loli.net/2022/11/02/dS7uaMRijxTI43P.jpg'
     // }
 ];
-
 //获取DOM元素
 const audio = doc.querySelector('#audio');//播放器
 const bbg = doc.querySelector('body');//背景
@@ -62,6 +61,34 @@ const end = doc.querySelector('#end');//结束时间
 const bar = doc.querySelector('#bar');//进度条
 const now = doc.querySelector('#now');//进度条实时
 const model = doc.querySelector('#mode');//播放模式
+const comment = doc.querySelectorAll('.musicComment')//评论
+//歌曲评论功能
+const MusicComment = function (x) {
+    const comment21 = 'https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/comment/music?id=' + top50result1[x] + '&limit=21';
+    const request4 = new XMLHttpRequest();
+    request4.open('GET', comment21);
+    request4.responseType = 'json';
+    request4.send();
+    request4.onload = function () {
+        const commentList = request4.response;
+        seekComment(commentList);
+
+    }
+}
+const seekComment = function (commentList) {
+    let com = '';
+    for (let m = 0; m <= commentList["hotComments"].length - 1; m++) {
+        let com = commentList["hotComments"][m]["content"];
+        let userUrl = commentList["hotComments"][m]['user']['avatarUrl'];
+        let userName = commentList["hotComments"][m]['user']['nickname'];
+        let timeStr = commentList["hotComments"][m]['timeStr'];
+        comment[m].innerHTML = '<img' + ' ' + 'src=' + userUrl  + '>'
+        +'<div class="name">' + userName + '</div>'
+        +'<div class="com">' + com + '</div>'
+        +'<div class="time">' + timeStr + '</div>';
+    }
+}
+
 // 进度条功能
 function conversion(value) {
     let minute = Math.floor(value / 60)
@@ -95,7 +122,7 @@ setInterval(() => {
 let songsNumbers = '';
 let k = 0;
 let j = 1;
-let top50result1 = []; 
+let top50result1 = [];
 const authorTop50 = 'https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/artist/top/song?id=1132392'
 let request3 = new XMLHttpRequest();
 request3.open('GET', authorTop50);
@@ -105,22 +132,23 @@ request3.send();
 request3.onload = function () {
     top50List = request3.response;
     let top50result = '';
-    for (let m = 0; m <= top50List['songs'].length-1; m++) {
-        if(m < top50List['songs'].length-1)
+    for (let m = 0; m <= top50List['songs'].length - 1; m++) {
+        if (m < top50List['songs'].length - 1)
             top50result += String(top50List['songs'][m]['id'] + ',');
         else
-        top50result += String(top50List['songs'][m]['id']);
+            top50result += String(top50List['songs'][m]['id']);
 
         top50result1[m] = top50List['songs'][m]['id'];
 
+        console.log(top50List['songs'][m]['name'])
+
     }
     musicurl(top50result);
-    console.log(top50result)
     setInterval(_seekMusic(top50result1), 2000);
 }
 
 function loginLove() {
-    let love = 'https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/likelist?uid=32953014'
+    const love = 'https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/likelist?uid=32953014'
     let request2 = new XMLHttpRequest();
     request2.open('GET', love);
     request2.withCredentials = true;
@@ -129,7 +157,7 @@ function loginLove() {
     request2.onload = function () {
         loveList = request2.response;
         console.log(loveList)
-        setInterval(_seekMusic(loveList), 4000)
+        setInterval(_seekMusic(loveList), 1500)
 
     }
 }
@@ -144,6 +172,7 @@ function seekMusic(loveList) {
     if (k >= 0 && k <= loveList.length - 1) {
         songsNumbers = loveList[k];
         k++;
+       
         musicDetials();
     }
     else {
@@ -166,14 +195,22 @@ function musicurl(top50) {
     }
 }
 function addlovemusic(lovemusic) {
-    for(let m= 0; m<=50 ;m++)
-        if (songsList[m] === undefined)
-            songsList[m] = {
-                title: '',
-                author: '',
-                bgPath: '',
-                path: lovemusic["data"][m-1]["url"]
+    for (let m = 1; m <= top50result1.length; m++) {
+        for (let s = 0; top50result1.length > s; s++) {
+            if (top50result1[m - 1] == lovemusic['data'][s]['id']) {
+                if (songsList[m] === undefined) {
+                    songsList[m] = {
+                        title: '',
+                        author: '',
+                        bgPath: '',
+                        path: lovemusic["data"][s]["url"]
+
+                    }
+                }
+                break;
             }
+        }
+    }
 }
 let addlovemusicdetials = function (lovemusic1) {
     songsList[j]['title'] = String(lovemusic1["songs"][0]["name"]);
@@ -251,6 +288,7 @@ function render(song) {
     audio.src = song.path;//音乐资源地址
     bgimg.style.backgroundImage = "url(" + song.bgPath + ")";//背景图片
     bgimg.style.backgroundSize = "cover";
+
 
 }
 
@@ -353,6 +391,7 @@ function preSong() {
         curSongIndex--;
         render(songsList[curSongIndex]);
         songPlay();
+        MusicComment(curSongIndex);
     }
 }
 
@@ -362,6 +401,7 @@ function nextSong() {
         curSongIndex++;
         render(songsList[curSongIndex]);
         songPlay();
+        MusicComment(curSongIndex);
     }
 }
 //随机播放下的上一首
@@ -402,7 +442,6 @@ function voiceOff() {
     voiceBtn.classList.remove('icon-yinliang');
 
 }
-
 
 init();
 
