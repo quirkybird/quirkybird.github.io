@@ -391,7 +391,7 @@ function preSong() {
         curSongIndex--;
         render(songsList[curSongIndex]);
         songPlay();
-        MusicComment(curSongIndex);
+        MusicComment(curSongIndex-1);
     }
 }
 
@@ -401,7 +401,7 @@ function nextSong() {
         curSongIndex++;
         render(songsList[curSongIndex]);
         songPlay();
-        MusicComment(curSongIndex);
+        MusicComment(curSongIndex-1);
     }
 }
 //随机播放下的上一首
