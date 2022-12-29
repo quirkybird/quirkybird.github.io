@@ -22,7 +22,7 @@ body{
     font-family: PingFang;
 }
 .time-bar{
-    width: 1036px;
+    width: 100%;
     display: flex;
     flex-direction: column;
    align-items: center;
@@ -179,14 +179,17 @@ body{
 #comment{
     width: 70vw;
     height: 1500px;
-    margin: 100px auto;
+    margin: 50px auto;
     display: flex;
-    flex-wrap:wrap;
-    justify-content:space-around;
-    align-items: center;
-    align-content:space-around;
+    flex-wrap: wrap;
+    justify-content:space-between;
     
 
+}
+@media only screen and (max-width: 600px){
+    #comment{
+        height: 3500px;
+    }
 }
 #comment .musicComment{
     width: 300px;
@@ -227,8 +230,8 @@ body{
 }
 #img-loction{
     position: absolute;
-    bottom: 100px;
-    left: 100px;
+    bottom: 10px;
+    left: 25px;
     color: #F0F8FF;
 }
 #img-loction a:link{
