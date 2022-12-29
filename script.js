@@ -64,7 +64,7 @@ const model = doc.querySelector('#mode');//播放模式
 const comment = doc.querySelectorAll('.musicComment')//评论
 //歌曲评论功能
 const MusicComment = function (x) {
-    const comment21 = 'https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/comment/music?id=' + top50result1[x] + '&limit=21';
+    const comment21 = 'http://101.132.77.21:3000/comment/music?id=' + top50result1[x] + '&limit=21';
     const request4 = new XMLHttpRequest();
     request4.open('GET', comment21);
     request4.responseType = 'json';
@@ -123,7 +123,7 @@ let songsNumbers = '';
 let k = 0;
 let j = 1;
 let top50result1 = [];
-const authorTop50 = 'https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/artist/top/song?id=1132392'
+const authorTop50 = 'http://101.132.77.21:3000/artist/top/song?id=1132392'
 let request3 = new XMLHttpRequest();
 request3.open('GET', authorTop50);
 request3.withCredentials = true;
@@ -148,7 +148,7 @@ request3.onload = function () {
 }
 
 function loginLove() {
-    const love = 'https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/likelist?uid=32953014'
+    const love = 'http://101.132.77.21:3000/likelist?uid=32953014'
     let request2 = new XMLHttpRequest();
     request2.open('GET', love);
     request2.withCredentials = true;
@@ -183,7 +183,7 @@ function seekMusic(loveList) {
 }
 
 function musicurl(top50) {
-    let musicurl = 'https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/song/url?id=' + top50;
+    let musicurl = 'http://101.132.77.21:3000/song/url?id=' + top50;
     let request = new XMLHttpRequest();
     request.open('GET', musicurl);
     request.responseType = 'json';
@@ -223,7 +223,7 @@ let addlovemusicdetials = function (lovemusic1) {
     j++;
 }
 function musicDetials() {
-    let musicDetials = 'https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/song/detail?ids=' + songsNumbers;
+    let musicDetials = 'http://101.132.77.21:3000/song/detail?ids=' + songsNumbers;
     let request1 = new XMLHttpRequest();
     request1.open('GET', musicDetials);
     request1.responseType = 'json';
@@ -287,7 +287,7 @@ function render(song) {
     audio.volume = 1;//声音0-1
     audio.src = song.path;//音乐资源地址
     bgimg.style.backgroundImage = "url(" + song.bgPath + ")";//背景图片
-    bgimg.style.backgroundSize = "cover";
+    bgimg.style.backgroundSize = 'cover';
 
 
 }
