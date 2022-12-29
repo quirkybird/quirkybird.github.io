@@ -10,56 +10,59 @@
     <link rel="stylesheet" href="./icon/iconfont.css">
     <script src="./JS/Time.js"></script>
 </head>
+
 <body>
-    <!-- 时间条 -->
-    <div class="time-bar">
-    <div id="time"></div>
-    <div id="date"></div>
-    </div>
-<div class="songlist"></div>
-    <div class="player">
-        <!--音乐插图 -->
-        <section class="img">
-        </section>
-        <!-- 音乐信息 -->
-        <section class="info">
-            <!-- 进度条 -->
-            <div class="progress">
-                <div id="start"></div>
-                <div id="bar">
-                    <div id="now"></div>
+    <div id="first-page">
+        <!-- 时间条 -->
+        <div class="time-bar">
+            <div id="time"></div>
+            <div id="date"></div>
+        </div>
+        <div class="songlist"></div>
+        <div class="player">
+            <!--音乐插图 -->
+            <section class="img">
+            </section>
+            <!-- 音乐信息 -->
+            <section class="info">
+                <!-- 进度条 -->
+                <div class="progress">
+                    <div id="start"></div>
+                    <div id="bar">
+                        <div id="now"></div>
+                    </div>
+                    <div id="end"></div>
                 </div>
-                <div id="end"></div>
-            </div>
 
-            <!-- 歌曲信息 -->
-            <div class="song-detail">
-                <span id="title"></span>
-                <span id="author"></span>
-            </div>
-
-            <!-- 按钮区 -->
-            <div id="controls" class="controls">
-                <span id="navigation"><i class="iconfont icon-daohang"></i></span>
-                <div class="play">
-                    <span><i id="voice" class="iconfont icon-yinliang"></i></span>
-                    <span><i id="pre" class="iconfont icon-shangyishou"></i></span>
-                    <span><i id="play" class="iconfont icon-24gf-play"></i></span>
-                    <span><i id="next" class="iconfont icon-xiayishou"></i></span>
-                    <span><i id="mode" class="iconfont icon-shunxubofang"></i></span>
+                <!-- 歌曲信息 -->
+                <div class="song-detail">
+                    <span id="title"></span>
+                    <span id="author"></span>
                 </div>
-                <span><i id="add" class="iconfont icon-tianjia"></i></span>
 
-            </div>
+                <!-- 按钮区 -->
+                <div id="controls" class="controls">
+                    <span id="navigation"><i class="iconfont icon-daohang"></i></span>
+                    <div class="play">
+                        <span><i id="voice" class="iconfont icon-yinliang"></i></span>
+                        <span><i id="pre" class="iconfont icon-shangyishou"></i></span>
+                        <span><i id="play" class="iconfont icon-24gf-play"></i></span>
+                        <span><i id="next" class="iconfont icon-xiayishou"></i></span>
+                        <span><i id="mode" class="iconfont icon-shunxubofang"></i></span>
+                    </div>
+                    <span><i id="add" class="iconfont icon-tianjia"></i></span>
+
+                </div>
 
 
-        </section>
+            </section>
 
-        <!-- audio标签 -->
-        <section class="audio">
-            <audio id="audio" src=""></audio>
-        </section>
+            <!-- audio标签 -->
+            <section class="audio">
+                <audio id="audio" src=""></audio>
+            </section>
 
+        </div>
     </div>
     <section id="comment">
         <div class="musicComment">
@@ -110,8 +113,9 @@
     </section>
     <ul id="img-loction">
         <li>图源<a href="https://bing.ioliu.cn/">Bing(必应)</a></li>
-    </ul> 
+    </ul>
+
 </body>
-<script  src="./script.js"></script>
+<script src="./script.js"></script>
 
 </html>

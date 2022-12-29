@@ -11,18 +11,25 @@
     padding: 0;
     box-sizing: border-box;   
 }
-
 body{
+    background: url('./images/paper.png');
+}
+#first-page{
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: url(' https://www.yuanxiapi.cn/api/bing/');
     /* background: linear-gradient(to right, #4b6cb7, #182848); */
     background-size: cover;  
     /* font-family: JosefinSans-Light; */
-    background-color: #617172;
+    position: relative;
     font-family: PingFang;
 }
 .time-bar{
     width: 100%;
+    position: absolute;
+    top:10px;
     display: flex;
     flex-direction: column;
    align-items: center;
@@ -31,7 +38,6 @@ body{
     font-family:PingFang;
     color: #F0F8FF;
     user-select: none;
-    margin: 50px auto;
     
 }
 #date{
@@ -52,14 +58,12 @@ body{
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 5px 10px 15px rgb(54,79,60,0.4);
-    top: 10px;
-    margin: 0 auto;
     /* transition: all 0.5s ease-in-out; */
 }
 
 .player .img{
     width: 100%;
-    height:69%;
+    height: 100%;
     user-select: none;
 
 }
@@ -183,7 +187,6 @@ body{
     display: flex;
     flex-wrap: wrap;
     justify-content:space-between;
-    
 
 }
 @media only screen and (max-width: 600px){
@@ -230,8 +233,8 @@ body{
 }
 #img-loction{
     position: absolute;
-    bottom: 10px;
-    left: 25px;
+    bottom: 100px;
+    left: 100px;
     color: #F0F8FF;
 }
 #img-loction a:link{
