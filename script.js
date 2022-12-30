@@ -126,7 +126,6 @@ let top50result1 = [];
 const authorTop50 = 'http://101.132.77.21:3000/artist/top/song?id=1132392'
 let request3 = new XMLHttpRequest();
 request3.open('GET', authorTop50);
-request3.withCredentials = true;
 request3.responseType = 'json';
 request3.send();
 request3.onload = function () {
@@ -246,6 +245,7 @@ function init() {
             curSongIndex++;
             render(songsList[curSongIndex]);
             songPlay();
+            MusicComment(curSongIndex-1);
         }
     }
 
@@ -336,6 +336,8 @@ function playModel() {
                 render(songsList[curSongIndex]);
 
                 songPlay();
+                
+
             }
             break;
 
@@ -410,6 +412,8 @@ function RpreSong() {
         curSongIndex = Math.floor(Math.random() * (songsList.length));
         render(songsList[curSongIndex]);
         songPlay();
+        MusicComment(curSongIndex-1);
+
     }
 }
 
@@ -419,6 +423,7 @@ function RnextSong() {
         curSongIndex = Math.floor(Math.random() * (songsList.length));
         render(songsList[curSongIndex]);
         songPlay();
+        MusicComment(curSongIndex-1);
     }
 }
 

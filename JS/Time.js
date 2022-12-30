@@ -1,4 +1,4 @@
-let iCount = 2;
+
 window.onload = function () {
     let oDt = new Date();
     let swd = "";
