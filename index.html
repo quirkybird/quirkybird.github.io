@@ -8,10 +8,11 @@
     <title>雨世界音乐播放器</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./icon/iconfont.css">
-    <script src="./JS/Time.js" defer></script>
+    <script src="./JS/Time.js"></script>
 </head>
 
 <body>
+
     <div id="first-page">
         <!-- 时间条 -->
         <div class="time-bar">
@@ -64,6 +65,15 @@
 
         </div>
     </div>
+      <!-- 搜索框 -->
+      <div class="search-box">
+        <form id="form">
+        <input type="text" value="邓丽君" name="search" placeholder="邓丽君" autocomplete="off">
+        <button type="submit"><i class="iconfont icon-sousuo"></i></button>
+       </form>
+    </div>
+
+    <!-- 评论展示 -->
     <section id="comment">
         <div class="musicComment">
             <p></p>

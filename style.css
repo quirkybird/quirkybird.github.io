@@ -15,6 +15,64 @@ body{
     background: url('./images/paper.jpg');
     background-size: cover; 
 }
+/* 搜索框 */
+.search-box {
+    width: 275px;
+    height: 50px;
+    background-color: #ff6700;
+    line-height: 0;
+    position: relative;
+   top:-80px;
+    left:54px;
+    z-index: 10;
+}
+
+.search-box input {
+    outline-style: none;
+    border: 1px solid #e0e0e0;
+    padding: 0 10px;
+    height: 50px;
+    width: 223px;
+    color: #617172;
+    font-size: large;
+    transition: border 0.3s;
+    position: absolute;
+    left: 0;
+}
+
+.search-box button {
+    width: 52px;
+    height: 50px;
+    padding: 1px 6px;
+    position: absolute;
+    right: 0;
+    border: 1px solid #e0e0e0;
+    border-left: none;
+    background-color: #fff;
+    transition: border 0.3s;
+    font-size: larger;
+}
+
+/* 可以选中外面的容器设置里面的属性 */
+.search-box:hover input {
+    border: 1px solid #a9a9a9;
+}
+
+.search-box:hover button {
+    border: 1px solid #a9a9a9;
+    border-left: none;
+}
+
+.search-box button:hover {
+    background: rgb(92,179,204);
+    color: #fff;
+    transition: background-color 0.2s;
+}
+.search-box button:active{
+    background-color: #2177b8;
+}
+
+/* 后续 */
 #first-page{
     height: 100vh;
     display: flex;

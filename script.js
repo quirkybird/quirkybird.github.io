@@ -1,51 +1,14 @@
 const doc = document;
 //歌曲信息
-const songsList = [
-
+let songsList = [
     {
         id: 'xxx-01',
-        title: '江湖流 (Live)',
-        author: 'KEY.L刘聪',
-        path: './music/KEY.L刘聪 - 江湖流 (Live).mp3',
-        bgPath: 'https://s2.loli.net/2022/11/02/d2KhzqHsatiSxWm.jpg',
-        bbgPath: 'https://s2.loli.net/2022/11/02/E4ApjPh3nwNfTWG.jpg'
-
+        title: '安河桥',
+        author: 'GAI',
+        path: './music/安河桥.mp3',
+        bgPath: 'https://s2.loli.net/2022/11/02/UBsay9vbnDjAcMg.png',
+        bbgPath: 'https://s2.loli.net/2022/11/02/dS7uaMRijxTI43P.jpg'
     }
-    // {
-
-    //     id: 'xxx-02',
-    //     title: '没什么大不了（なんでもないや）',
-    //     author: 'Maxone,夏璃夜',
-    //     path: './music/Maxone,夏璃夜 - 没什么大不了.mp3',
-    //     bgPath: 'https://s2.loli.net/2022/11/02/FoikyVNn3dvGuZK.jpg',
-    //     bbgPath: 'https://s2.loli.net/2022/11/02/dS7uaMRijxTI43P.jpg'
-    // },
-
-    // {
-
-    //     id: 'xxx-03',
-    //     title: 'いつも何度でも',
-    //     author: '伊藤サチコ',
-    //     path: './music/伊藤サチコ - いつも何度でも.mp3',
-    //     bgPath: 'https://s2.loli.net/2022/11/02/p6kYAtjVJamUHGo.webp',
-    //     bbgPath: 'https://s2.loli.net/2022/11/02/dS7uaMRijxTI43P.jpg'
-    // },
-    // {
-    //     id: 'xxx-04',
-    //     title: 'Wild West',
-    //     author: '那奇沃夫,kkluv',
-    //     path: './music/那奇沃夫,kkluv - Wild West.mp3',
-    //     bgPath: 'https://s2.loli.net/2022/11/02/f5DaJtNlzM7oZQu.webp',
-    //     bbgPath: 'https://s2.loli.net/2022/11/02/E4ApjPh3nwNfTWG.jpg'
-    // },
-    // {
-    //     id: 'xxx-05',
-    //     title: '安河桥',
-    //     author: 'GAI',
-    //     path: './music/安河桥.mp3',
-    //     bgPath: 'https://s2.loli.net/2022/11/02/UBsay9vbnDjAcMg.png',
-    //     bbgPath: 'https://s2.loli.net/2022/11/02/dS7uaMRijxTI43P.jpg'
-    // }
 ];
 //获取DOM元素
 const audio = doc.querySelector('#audio');//播放器
@@ -123,7 +86,24 @@ let songsNumbers = '';
 let k = 0;
 let j = 1;
 let top50result1 = [];
-const authorTop50 = 'http://101.132.77.21:3000/artist/top/song?id=1132392'
+function hitsong(ids){
+songsNumbers = '';
+k = 0;
+j = 1;
+top50result1 = [];
+songsList = [
+
+    {
+        id: 'xxx-01',
+        title: '安河桥',
+        author: 'GAI',
+        path: './music/安河桥.mp3',
+        bgPath: 'https://s2.loli.net/2022/11/02/UBsay9vbnDjAcMg.png',
+        bbgPath: 'https://s2.loli.net/2022/11/02/dS7uaMRijxTI43P.jpg'
+    }
+    
+];
+const authorTop50 = 'http://101.132.77.21:3000/artist/top/song?id=' + ids;
 let request3 = new XMLHttpRequest();
 request3.open('GET', authorTop50);
 request3.responseType = 'json';
@@ -143,22 +123,8 @@ request3.onload = function () {
 
     }
     musicurl(top50result);
-    setInterval(_seekMusic(top50result1), 2000);
+    console.log('看到我你就明白了-------------------')
 }
-
-function loginLove() {
-    const love = 'http://101.132.77.21:3000/likelist?uid=32953014'
-    let request2 = new XMLHttpRequest();
-    request2.open('GET', love);
-    request2.withCredentials = true;
-    request2.responseType = 'json';
-    request2.send();
-    request2.onload = function () {
-        loveList = request2.response;
-        console.log(loveList)
-        setInterval(_seekMusic(loveList), 1500)
-
-    }
 }
 
 function _seekMusic(loveList) {
@@ -171,11 +137,11 @@ function seekMusic(loveList) {
     if (k >= 0 && k <= loveList.length - 1) {
         songsNumbers = loveList[k];
         k++;
-       
         musicDetials();
     }
     else {
-        clearInterval(_seekMusic(loveList));
+        window.clearInterval(timeId);
+        console.log('····················定时器被释放了····················');
     }
 
 
@@ -305,12 +271,14 @@ function playModel() {
                     curSongIndex++;
                     render(songsList[curSongIndex]);
                     songPlay();
+                    MusicComment(curSongIndex-1);
 
                 }
                 if (curSongIndex == songsList.length - 1) {
                     curSongIndex = 0;
                     render(songsList[curSongIndex]);
                     songPlay();
+                    MusicComment(curSongIndex-1);
                 }
 
             }
@@ -334,7 +302,7 @@ function playModel() {
                 curSongIndex = Math.floor(Math.random() * (songsList.length));
 
                 render(songsList[curSongIndex]);
-
+                MusicComment(curSongIndex-1);
                 songPlay();
                 
 
@@ -350,6 +318,7 @@ function playModel() {
                     curSongIndex++;
                     render(songsList[curSongIndex]);
                     songPlay();
+                    MusicComment(curSongIndex-1);
                 }
             }
             i = 0;
@@ -449,4 +418,96 @@ function voiceOff() {
 }
 
 init();
+//简易搜索模块
+let ids = '7570';
+const form = doc.querySelector('#form');
+//组织表单默认行为
+form.addEventListener("submit", (ev) => {
+	ev.preventDefault();
+	// 自己发请求
+    window.clearInterval(timeId);
+    curSongIndex = 0;
+    render(songsList[curSongIndex]);
+    sendSearchRequest();
+})
+//封装一个返回json数据
+Object.defineProperty(HTMLFormElement.prototype, 'jsondata', {
+    get() {
+        const jsondata = {}
+        const formdata = new FormData(this);
+        formdata.forEach((value, key) => {
+            if (!jsondata[key]) {
+                jsondata[key] = formdata.getAll(key).length > 1 ? formdata.getAll(key) : formdata.get(key);
+            }
+        });
+        return jsondata;
+    }
+})
+// 发请求，搜索功能
+function sendSearchRequest(){
+const searchSinger = 'http://101.132.77.21:3000/search?keywords=' + form.jsondata.search;
+const request5 = new XMLHttpRequest();
+request5.open('GET', searchSinger);
+request5.responseType = 'json';
+request5.send();
+request5.onload = function () {
+    const searchId = request5.response;
+    if(form.jsondata.search === searchId["result"]["songs"][0]["artists"][0]["name"]){
+        ids = searchId["result"]["songs"][0]["artists"][0]["id"];
+        hitsong(ids);
+        timeId = setInterval(_seekMusic(top50result1), 2000);
+        alert('找到' + searchId["result"]["songs"][0]["artists"][0]["name"] + '啦！');
+    }
+    else{
+        alert('找不到' + form.jsondata.search + '，再试试其他歌手');
+    }
+}
+}
+//
+hitsong(ids);
+//找歌曲细节
+let timeId = setInterval(_seekMusic(top50result1), 2000);
 
+
+
+
+
+//重写alert样式
+window.alert=function (msg){
+	//创建弹出窗口（用DIV），窗口上的内容包括一个显示文本字符串的容器和一个按钮
+    var box=document.createElement('div');
+	var msgbox=document.createElement('div');
+	box.appendChild(msgbox);
+    var heartImg = document.createElement('img');
+    box.appendChild(heartImg);
+	var btn=document.createElement('button');
+	box.appendChild(btn);
+	document.body.appendChild(box);
+    
+    //设置弹出窗口的显示样式
+	box.style.cssText="position:relative;border:1px solid gray;width:300px;height:200px;padding:10px;z-index=100;background:white;box-shadow: 5px 10px 15px rgb(54,79,60,0.4);border-radius:10px;";
+    
+    //设置弹出窗口的位置
+	box.style.position="absolute";
+	box.style.top='340px';
+    box.style.left='48px';
+    
+    //设置弹出窗口上的文本内容及其样式
+	msgbox.style.cssText="height:50px;padding:10px;text-align:center;font-size:large;";
+	msgbox.innerHTML=msg;
+    
+    //插图
+    heartImg.src = './images/heart.png';
+    heartImg.style.width = '80px';
+    heartImg.style.position="absolute";
+    heartImg.style.left='36%';
+ 
+    //设置按钮
+	btn.innerHTML="我知道了";
+	btn.style.cssText="position:absolute;bottom:10px;left:110px;background-color:#93b5cf;border: 1px solid #4e7ca1;border-radius:6px;font-size:large;";
+ 
+    //给按钮绑定单击事件
+	btn.onclick=function (){
+		document.body.removeChild(box);//点击确定按钮后让alert窗口消失
+	}
+}
