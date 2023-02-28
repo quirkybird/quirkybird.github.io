@@ -1,106 +1,129 @@
 @font-face {
-    font-family: JosefinSans-Light;
-    src: url(./font/JosefinSans-Light.ttf);
+  font-family: JosefinSans-Light;
+  src: url(./font/JosefinSans-Light.ttf);
 }
-@font-face{
-    font-family: PingFang;
-    src: url('./font/苹方黑体-准-简.ttf');
+@font-face {
+  font-family: PingFang;
+  src: url("./font/苹方黑体-准-简.ttf");
 }
-*{
-    margin:0;
-    padding: 0;
-    box-sizing: border-box;   
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-body{
-    background: url('./images/paper.jpg');
-    background-size: cover; 
+li{
+  list-style: none;
+}
+body {
+  background: url("./images/paper.jpg");
+  background-size: cover;
+}
+.clearfix::before,
+.clearfix::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+/* 导航栏 */
+.nav-bar{
+  background:#3399CC;
+}
+/* 左边导航按钮 */
+.nav-bar .nav{
+  float: left;
+  font-size: 34px;
+  color: #e0e0e0;
+  line-height: 50px;
 }
 /* 搜索框 */
 .search-box {
-    width: 275px;
-    height: 50px;
-    background-color: #ff6700;
-    line-height: 0;
-    position: relative;
-   top:-80px;
-    left:54px;
-    z-index: 10;
+  width: 275px;
+  height: 40px;
+  background-color: #ff6700;
+  line-height: 0;
+  float: right;
+  margin-right: 5%;
+  position: relative;
+  margin-top:5px;
+  /* margin-top: -20px; */
+  z-index: 10;
 }
 
 .search-box input {
-    outline-style: none;
-    border: 1px solid #e0e0e0;
-    padding: 0 10px;
-    height: 50px;
-    width: 223px;
-    color: #617172;
-    font-size: large;
-    transition: border 0.3s;
-    position: absolute;
-    left: 0;
+  outline-style: none;
+  border: 1px solid #e0e0e0;
+  padding: 0 10px;
+  height: 40px;
+  width: 223px;
+  color: #617172;
+  font-size: large;
+  transition: border 0.3s;
+  position: absolute;
+  left: 0;
 }
 
 .search-box button {
-    width: 52px;
-    height: 50px;
-    padding: 1px 6px;
-    position: absolute;
-    right: 0;
-    border: 1px solid #e0e0e0;
-    border-left: none;
-    background-color: #fff;
-    transition: border 0.3s;
-    font-size: larger;
+  width: 52px;
+  height: 40px;
+  padding: 1px 6px;
+  position: absolute;
+  right: 0;
+  border: 1px solid #e0e0e0;
+  border-left: none;
+  background-color: #fff;
+  transition: border 0.3s;
+  font-size: larger;
 }
 
 /* 可以选中外面的容器设置里面的属性 */
 .search-box:hover input {
-    border: 1px solid #a9a9a9;
+  border: 1px solid #a9a9a9;
 }
 
 .search-box:hover button {
-    border: 1px solid #a9a9a9;
-    border-left: none;
+  border: 1px solid #a9a9a9;
+  border-left: none;
 }
 
 .search-box button:hover {
-    background: rgb(92,179,204);
-    color: #fff;
-    transition: background-color 0.2s;
+  background: rgb(92, 179, 204);
+  color: #fff;
+  transition: background-color 0.2s;
 }
-.search-box button:active{
-    background-color: #2177b8;
+.search-box button:active {
+  background-color: #2177b8;
 }
 
 /* 后续 */
-#first-page{
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: url(' https://www.yuanxiapi.cn/api/bing/');
-    /* background: linear-gradient(to right, #4b6cb7, #182848); */
-    background-size: cover;  
-    /* font-family: JosefinSans-Light; */
-    position: relative;
-    font-family: PingFang;
+#first-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(#13547a 10% ,45%, #fff 80% );
+  /* background: url(" https://www.yuanxiapi.cn/api/bing/"); */
+  /* background: linear-gradient(to right, #4b6cb7, #182848); */
+  background-size: cover;
+  /* font-family: JosefinSans-Light; */
+  position: relative;
+  font-family: PingFang;
 }
-.time-bar{
-    width: 100%;
-    position: absolute;
-    top:10px;
-    display: flex;
-    flex-direction: column;
-   align-items: center;
-    font-size: 70px;
-    font-weight:900;
-    font-family:PingFang;
-    color: #F0F8FF;
-    user-select: none;
-    
+.time-bar {
+  width: 100%;
+  position: absolute;
+  top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 50px;
+  font-weight: 900;
+  font-family: PingFang;
+  color: #FFFFFF;
+  user-select: none;
 }
-#date{
-    font-size:25px;
+#date {
+  font-size: 25px;
 }
 /* .songlist{
     width: 190px;
@@ -110,21 +133,21 @@ body{
     right: 30px;
 } */
 
-.player{
-    width: 480px;
-    height: 354px;
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 5px 10px 15px rgb(54,79,60,0.4);
-    /* transition: all 0.5s ease-in-out; */
+.player {
+  width: 480px;
+  height: 354px;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 5px 10px 15px rgb(54, 79, 60, 0.4);
+  z-index: 10;
+  /* transition: all 0.5s ease-in-out; */
 }
 
-.player .img{
-    width: 100%;
-    height: 100%;
-    user-select: none;
-
+.player .img {
+  width: 100%;
+  height: 100%;
+  user-select: none;
 }
 /* .player .img img{
     width: 100%;
@@ -133,55 +156,53 @@ body{
     user-select: none;
     transition: all 0.5s ease-in-out;
 } */
-.info{
-    width: 100%;
-    height: 145px;
-    background-color: #fff;
-    position: absolute;
-    bottom: 0;
-    padding: 10px 0;
-    transform: translateY(35px);
-    transition: all 0.5s ease-in-out;
+.info {
+  width: 100%;
+  height: 145px;
+  background-color: #fff;
+  position: absolute;
+  bottom: 0;
+  padding: 10px 0;
+  transform: translateY(35px);
+  transition: all 0.5s ease-in-out;
 }
 
-.player:hover .info{
-    transform: translateY(0px);
+.player:hover .info {
+  transform: translateY(0px);
 }
 /* .player:hover .img img{
     transform: scale(1.1);
 } */
-.info .progress{
-    height: 14px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    user-select: none;
-    
+.info .progress {
+  height: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
 }
 .info .progress #start,
-.info .progress #end{
-    margin: 0 12px;
-    user-select: none;
+.info .progress #end {
+  margin: 0 12px;
+  user-select: none;
 }
-.info .progress #bar{
-    width: 400px;
-    height: 12px;
-    border-radius: 4px ;
-    background-color: rgb(222,230,238);
-    position: relative;
-
+.info .progress #bar {
+  width: 400px;
+  height: 12px;
+  border-radius: 4px;
+  background-color: rgb(222, 230, 238);
+  position: relative;
 }
 #now {
-    position: absolute;
-    left: 0;
-    display: inline-block;
-    height: 12px;
-    width: 0%;
-    border-radius: 4px ;
-    background: rgb(92,179,204);
-  }
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  height: 12px;
+  width: 0%;
+  border-radius: 4px;
+  background: rgb(92, 179, 204);
+}
 
-  /* .now::after {
+/* .now::after {
     content: '';
     position: absolute;
     left: 100%;
@@ -189,121 +210,106 @@ body{
     height: 7px;
     background-color: lightblue;
   } */
-.info .song-detail{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 10px;
+.info .song-detail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
 }
-.info .song-detail span{
-    margin: 8px 0;
-    height: 16px;
-    user-select: none;
+.info .song-detail span {
+  margin: 8px 0;
+  height: 16px;
+  user-select: none;
 }
-.info .song-detail #title{
-    font-size:20px;
-    font-weight: 900;
-    letter-spacing: 2px;
+.info .song-detail #title {
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 2px;
 }
-.info .song-detail #author{
-    letter-spacing: 1px;
+.info .song-detail #author {
+  letter-spacing: 1px;
 }
 
-.info .controls #navigation:hover{
-    color:#8abcd1;
-    transition: 0.5s;
+.info .controls #navigation:hover {
+  color: #8abcd1;
+  transition: 0.5s;
 }
 .info .controls {
-    margin-top:20px;
-    padding: 0 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    user-select: none;
+  margin-top: 20px;
+  padding: 0 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
 }
-.info .controls .play span{
-    margin: 0 10px;
-    cursor: pointer;
+.info .controls .play span {
+  margin: 0 10px;
+  cursor: pointer;
 }
-.info .controls span{
-    user-select: none;
+.info .controls span {
+  user-select: none;
 }
 /* 隐藏audio标签 */
-.audio{
-    width: 0;
-    height: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-
+.audio {
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
-#comment{
-    width: 70vw;
-    height: 1500px;
-    margin: 50px auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content:space-between;
-
+/* 音频可视化样式 */
+#audioViewContainer{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
 }
-@media only screen and (max-width: 600px){
-    #comment{
-        height: 3500px;
-    }
+/* 评论样式 */
+#comment {
+  width: 70vw;
+  height: 1500px;
+  margin: 50px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
-#comment .musicComment{
-    width: 300px;
-    height: 200px;
-    background-color: #F0F8FF;
-    box-shadow: 5px 10px 20px #134857;
-    border-radius: 25px;
-    position: relative;
-    overflow: hidden;
-    
+@media only screen and (max-width: 600px) {
+  #comment {
+    height: 3500px;
+  }
 }
-#comment .musicComment img{
-    display:block;
-    border-radius: 30px;
-    width:60px;
-    height:60px;
-    position:absolute;
-    top:15px;
-    left: 15px;
+#comment .musicComment {
+  width: 300px;
+  height: 200px;
+  background-color: #f0f8ff;
+  box-shadow: 5px 10px 20px #134857;
+  border-radius: 25px;
+  position: relative;
+  overflow: hidden;
 }
-#comment .musicComment .name{
-    position:absolute;
-    top:37.5px;
-    left: 95px;
-
+#comment .musicComment img {
+  display: block;
+  border-radius: 30px;
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 15px;
+  left: 15px;
 }
-#comment .musicComment .com{
-    position:absolute;
-    top:100px;
-    margin: 0 25px;
-
+#comment .musicComment .name {
+  position: absolute;
+  top: 37.5px;
+  left: 95px;
 }
-#comment .musicComment .time{
-    position:absolute;
-    bottom: 8px;
-    right: 15px;
-    
+#comment .musicComment .com {
+  position: absolute;
+  top: 100px;
+  margin: 0 25px;
 }
-#img-loction{
-    position: absolute;
-    bottom: 50px;
-    left: 100px;
-    color: #F0F8FF;
-}
-#img-loction a:link{
-   text-decoration: none;
-    color: #F0F8FF;
-}
-#img-loction a:visited{
-    color: #F0F8FF;
-}
-#img-loction a:hover{
-    text-decoration:underline;
-    color:cornflowerblue;
+#comment .musicComment .time {
+  position: absolute;
+  bottom: 8px;
+  right: 15px;
 }

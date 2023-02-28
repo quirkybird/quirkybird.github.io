@@ -12,36 +12,54 @@
 <body>
 </body>
 <script>
-var items = [ 1, 2, 3, 4, 5, 6 ];
-var results = [];
-var running = 0;
-var limit = 2;
+// Create an audio element
+var audio = document.createElement('audio');
 
-function async(arg, callback) {
-  console.log('参数为 ' + arg +' , 1秒后返回结果');
-  setTimeout(function () { callback(arg * 2); }, 1000);
-}
+// Create a canvas for visualizing the audio
+var canvas = document.createElement('canvas');
 
-function final(value) {
-  console.log('完成: ', value);
-}
+// Get an audio context
+var audioCtx = new AudioContext();
 
-function launcher() {
-  while(running < limit && items.length > 0) {
-    var item = items.shift();
-    async(item, function(result) {
-      results.push(result);
-      running--;
-      if(items.length > 0) {
-        launcher();
-      } else if(running == 0) {
-        final(results);
-      }
-    });
-    running++;
+// Create an analyser node
+var analyser = audioCtx.createAnalyser();
+
+// Connect the audio element to the analyser
+var source = audioCtx.createMediaElementSource(audio);
+source.connect(analyser);
+
+// Connect the analyser to the audio context destination
+analyser.connect(audioCtx.destination);
+
+// Set the canvas width and height to match the audio element
+canvas.width = audio.clientWidth;
+canvas.height = audio.clientHeight;
+
+// Use the canvas context to render a visualization of the audio
+var canvasCtx = canvas.getContext('2d');
+
+// Draw the visualization
+var draw = function() {
+  // Get the frequency data from the analyser
+  var dataArray = new Uint8Array(analyser.frequencyBinCount);
+  analyser.getByteFrequencyData(dataArray);
+  
+  // Clear the canvas
+  canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  // Loop through the data and draw a bar for each value
+  for (var i = 0; i < dataArray.length; i++) {
+    var value = dataArray[i];
+    canvasCtx.fillStyle = 'rgb(' + value + ', ' + value + ', ' + value + ')';
+    canvasCtx.fillRect(i * barWidth, canvas.height - value, barWidth, value);
   }
-}
+  
+  // Request the next frame
+  requestAnimationFrame(draw);
+};
 
-launcher();
+// Start the visualizer
+draw();
+
 </script>
 </html>

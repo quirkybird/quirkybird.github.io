@@ -1,131 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>雨世界音乐播放器</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./icon/iconfont.css">
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./icon/iconfont.css" />
     <script src="./JS/Time.js"></script>
-</head>
+  </head>
 
-<body>
-
-    <div id="first-page">
-        <!-- 时间条 -->
-        <div class="time-bar">
-            <div id="time"></div>
-            <div id="date"></div>
-        </div>
-        <div class="songlist"></div>
-        <div class="player">
-            <!--音乐插图 -->
-            <section class="img">
-            </section>
-            <!-- 音乐信息 -->
-            <section class="info">
-                <!-- 进度条 -->
-                <div class="progress">
-                    <div id="start"></div>
-                    <div id="bar">
-                        <div id="now"></div>
-                    </div>
-                    <div id="end"></div>
-                </div>
-
-                <!-- 歌曲信息 -->
-                <div class="song-detail">
-                    <span id="title"></span>
-                    <span id="author"></span>
-                </div>
-
-                <!-- 按钮区 -->
-                <div id="controls" class="controls">
-                    <span id="navigation"><i class="iconfont icon-daohang"></i></span>
-                    <div class="play">
-                        <span><i id="voice" class="iconfont icon-yinliang"></i></span>
-                        <span><i id="pre" class="iconfont icon-shangyishou"></i></span>
-                        <span><i id="play" class="iconfont icon-24gf-play"></i></span>
-                        <span><i id="next" class="iconfont icon-xiayishou"></i></span>
-                        <span><i id="mode" class="iconfont icon-shunxubofang"></i></span>
-                    </div>
-                    <span><i id="add" class="iconfont icon-tianjia"></i></span>
-
-                </div>
-
-
-            </section>
-
-            <!-- audio标签 -->
-            <section class="audio">
-                <audio id="audio" src=""></audio>
-            </section>
-
-        </div>
-    </div>
-      <!-- 搜索框 -->
-      <div class="search-box">
-        <form id="form">
-        <input type="text" value="邓丽君" name="search" placeholder="邓丽君" autocomplete="off">
+  <body>
+    <!-- 导航栏 -->
+    <!-- 导航 -->
+    <nav class="nav-bar clearfix">
+      <li class="iconfont icon-daohang2 nav"></li>
+    <!-- 搜索框 -->
+    <div class="search-box">
+      <form id="form">
+        <input
+          type="text"
+          name="search"
+          placeholder="邓丽君"
+          autocomplete="off"
+        />
         <button type="submit"><i class="iconfont icon-sousuo"></i></button>
-       </form>
+      </form>
+    </div>
+    </nav>
+    <div id="first-page">
+      <!-- 时间条 -->
+      <div class="time-bar">
+        <div id="time"></div>
+        <div id="date"></div>
+      </div>
+      <div class="songlist"></div>
+
+      <div class="player">
+        <!--音乐插图 -->
+        <section class="img"></section>
+        <!-- 音乐信息 -->
+        <section class="info">
+          <!-- 进度条 -->
+          <div class="progress">
+            <div id="start"></div>
+            <div id="bar">
+              <div id="now"></div>
+            </div>
+            <div id="end"></div>
+          </div>
+
+          <!-- 歌曲信息 -->
+          <div class="song-detail">
+            <span id="title"></span>
+            <span id="author"></span>
+          </div>
+
+          <!-- 按钮区 -->
+          <div id="controls" class="controls">
+            <span id="navigation"><i class="iconfont icon-daohang"></i></span>
+            <div class="play">
+              <span><i id="voice" class="iconfont icon-yinliang"></i></span>
+              <span><i id="pre" class="iconfont icon-shangyishou"></i></span>
+              <span><i id="play" class="iconfont icon-24gf-play"></i></span>
+              <span><i id="next" class="iconfont icon-xiayishou"></i></span>
+              <span><i id="mode" class="iconfont icon-shunxubofang"></i></span>
+            </div>
+            <span><i id="add" class="iconfont icon-tianjia"></i></span>
+          </div>
+        </section>
+
+        <!-- audio标签 -->
+        <section class="audio">
+          <audio id="audio" crossorigin="anonymous"></audio>
+        </section>
+      </div>
+
+       <!--音乐可视化 -->
+       <div id="audioViewContainer">
+        <canvas id="canvas"></canvas>
+      </div>
+
     </div>
 
     <!-- 评论展示 -->
     <section id="comment">
-        <div class="musicComment">
-            <p></p>
-        </div>
-        <div class="musicComment">
-            <p></p>
-        </div>
-        <div class="musicComment">
-            <p></p>
-        </div>
-        <div class="musicComment">
-            <p></p>
-        </div>
-        <div class="musicComment">
-            <p></p>
-        </div>
-        <div class="musicComment">
-            <p></p>
-        </div>
-        <div class="musicComment">
-            <p></p>
-        </div>
-        <div class="musicComment">
-            <p></p>
-        </div>
-        <div class="musicComment">
-            <p></p>
-        </div>
-        <div class="musicComment">
-            <p></p>
-        </div>
-        <div class="musicComment">
-            <p></p>
-        </div>
-        <div class="musicComment">
-            <p></p>
-        </div>
-        <div class="musicComment">
-            <p></p>
-        </div>
-        <div class="musicComment">
-            <p></p>
-        </div>
-        <div class="musicComment">
-            <p></p>
-        </div>
+      <div class="musicComment">
+        <p></p>
+      </div>
+      <div class="musicComment">
+        <p></p>
+      </div>
+      <div class="musicComment">
+        <p></p>
+      </div>
+      <div class="musicComment">
+        <p></p>
+      </div>
+      <div class="musicComment">
+        <p></p>
+      </div>
+      <div class="musicComment">
+        <p></p>
+      </div>
+      <div class="musicComment">
+        <p></p>
+      </div>
+      <div class="musicComment">
+        <p></p>
+      </div>
+      <div class="musicComment">
+        <p></p>
+      </div>
+      <div class="musicComment">
+        <p></p>
+      </div>
+      <div class="musicComment">
+        <p></p>
+      </div>
+      <div class="musicComment">
+        <p></p>
+      </div>
+      <div class="musicComment">
+        <p></p>
+      </div>
+      <div class="musicComment">
+        <p></p>
+      </div>
+      <div class="musicComment">
+        <p></p>
+      </div>
     </section>
-    <ul id="img-loction">
-        <li>图源<a href="https://bing.ioliu.cn/" target="_blank">Bing(必应)</a></li>
-    </ul>
-
-</body>
-<script src="./script.js"></script>
-
+  </body>
+  <script src="./script.js"></script>
 </html>

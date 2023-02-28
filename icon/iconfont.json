@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "826095",
+      "name": "导航",
+      "font_class": "daohang1",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "2210060",
+      "name": "导航",
+      "font_class": "daohang2",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
       "icon_id": "20000260",
       "name": "搜索",
       "font_class": "sousuo",
