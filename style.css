@@ -101,7 +101,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(#13547a 10% ,45%, #fff 80% );
+  background-image: linear-gradient(rgb(31,28,54) 10% ,45%, #fff 80% );
   /* background: url(" https://www.yuanxiapi.cn/api/bing/"); */
   /* background: linear-gradient(to right, #4b6cb7, #182848); */
   background-size: cover;

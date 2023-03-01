@@ -6,8 +6,7 @@ let songsList = [
     title: "安河桥",
     author: "GAI",
     path: "./music/安河桥.mp3",
-    bgPath: "https://s2.loli.net/2022/11/02/UBsay9vbnDjAcMg.png",
-    bbgPath: "https://s2.loli.net/2022/11/02/dS7uaMRijxTI43P.jpg",
+    bgPath: "https://s2.loli.net/2022/11/02/UBsay9vbnDjAcMg.png"
   },
 ];
 //获取DOM元素
@@ -25,6 +24,11 @@ const bar = doc.querySelector("#bar"); //进度条
 const now = doc.querySelector("#now"); //进度条实时
 const model = doc.querySelector("#mode"); //播放模式
 const comment = doc.querySelectorAll(".musicComment"); //评论
+
+// 创建一个 Image 对象
+let image = new Image();
+image.crossOrigin = "Anonymous";
+
 //歌曲评论功能
 const MusicComment = function (x) {
   const comment21 =
@@ -110,8 +114,7 @@ function hitsong(ids) {
       title: "安河桥",
       author: "GAI",
       path: "./music/安河桥.mp3",
-      bgPath: "https://s2.loli.net/2022/11/02/UBsay9vbnDjAcMg.png",
-      bbgPath: "https://s2.loli.net/2022/11/02/dS7uaMRijxTI43P.jpg",
+      bgPath: "https://s2.loli.net/2022/11/02/UBsay9vbnDjAcMg.png"
     },
   ];
   const authorTop50 = "https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/artist/top/song?id=" + ids;
@@ -266,7 +269,11 @@ function render(song) {
   audio.src = song.path; //音乐资源地址
   bgimg.style.backgroundImage = "url(" + song.bgPath + ")"; //背景图片
   bgimg.style.backgroundSize = "cover";
+  image.src = song.bgPath;
 }
+
+
+
 //音乐可视化方案 2D
 function onLoadAudio() {
     var context = new window.AudioContext();
@@ -314,6 +321,8 @@ function onLoadAudio() {
     renderFrame();
     
 }
+
+
 
 let i = 0;
 function playModel() {
@@ -578,3 +587,55 @@ window.alert = function (msg) {
     document.body.removeChild(box); //点击确定按钮后让alert窗口消失
   };
 };
+
+
+// 背景色提取
+const firstPage = doc.querySelector('#first-page');//首页的dom
+// 创建一个 Image 对象（在文件开头声明）
+// 当图像加载完成时执行回调函数
+image.onload = function() {
+  // 创建一个 Canvas 元素
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  // 将图像绘制到 Canvas 上
+  canvas.width = image.width;
+  canvas.height = image.height;
+  ctx.drawImage(image, 0, 0);
+
+  // 获取 Canvas 上所有像素数据
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const pixels = imageData.data;
+
+  // 创建一个空对象用于存储颜色出现的次数
+  const colorCounts = {};
+
+  // 遍历像素数据
+  for (let i = 0; i < pixels.length; i += 4) {
+    const r = pixels[i];
+    const g = pixels[i + 1];
+    const b = pixels[i + 2];
+    const color = `rgb(${r},${g},${b})`;
+
+    // 如果颜色已经出现过，次数加 1
+    if (colorCounts[color]) {
+      colorCounts[color]++;
+    } else { // 否则，将颜色加入对象中，次数为 1
+      colorCounts[color] = 1;
+    }
+  }
+
+  // 找到出现次数最多的颜色
+  let maxCount = 0;
+  let dominantColor = '';
+  for (const color in colorCounts) {
+    if (colorCounts[color] > maxCount) {
+      maxCount = colorCounts[color];
+      dominantColor = color;
+    }
+  }
+
+  console.log(dominantColor);
+  firstPage.style.backgroundImage = `linear-gradient(${dominantColor} 10% ,45%, #fff 80% )`
+
+}
