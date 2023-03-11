@@ -6,7 +6,7 @@ let songsList = [
     title: "安河桥",
     author: "GAI",
     path: "./music/安河桥.mp3",
-    bgPath: "https://s2.loli.net/2022/11/02/UBsay9vbnDjAcMg.png"
+    bgPath: "https://s2.loli.net/2022/11/02/UBsay9vbnDjAcMg.png",
   },
 ];
 //获取DOM元素
@@ -98,7 +98,7 @@ setInterval(() => {
   now.style.width = (audio.currentTime / audio.duration.toFixed(3)) * 100 + "%";
 }, 1000);
 
-//我的喜欢功能
+//top50歌曲查找功能
 let songsNumbers = "";
 let k = 0;
 let j = 1;
@@ -114,10 +114,12 @@ function hitsong(ids) {
       title: "安河桥",
       author: "GAI",
       path: "./music/安河桥.mp3",
-      bgPath: "https://s2.loli.net/2022/11/02/UBsay9vbnDjAcMg.png"
+      bgPath: "https://s2.loli.net/2022/11/02/UBsay9vbnDjAcMg.png",
     },
   ];
-  const authorTop50 = "https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/artist/top/song?id=" + ids;
+  const authorTop50 =
+    "https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/artist/top/song?id=" +
+    ids;
   let request3 = new XMLHttpRequest();
   request3.open("GET", authorTop50);
   request3.responseType = "json";
@@ -149,17 +151,18 @@ function seekMusic(loveList) {
     songsNumbers = loveList[k];
     k++;
     musicDetials();
-    timeId = setTimeout(_seekMusic(top50result1),2000)
+    timeId = setTimeout(_seekMusic(top50result1), 2000);
   } else {
     window.clearInterval(timeId);
-    console.log(k)
-    console.log(loveList.length)
+    console.log(k);
+    console.log(loveList.length);
     console.log("····················定时器被释放了····················");
   }
 }
 
 function musicurl(top50) {
-  let musicurl = "https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/song/url?id=" + top50;
+  let musicurl =
+    "https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/song/url?id=" + top50;
   let request = new XMLHttpRequest();
   request.open("GET", musicurl);
   request.responseType = "json";
@@ -200,7 +203,8 @@ let addlovemusicdetials = function (lovemusic1) {
 };
 function musicDetials() {
   let musicDetials =
-    "https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/song/detail?ids=" + songsNumbers;
+    "https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/song/detail?ids=" +
+    songsNumbers;
   let request1 = new XMLHttpRequest();
   request1.open("GET", musicDetials);
   request1.responseType = "json";
@@ -272,57 +276,55 @@ function render(song) {
   image.src = song.bgPath;
 }
 
-
-
 //音乐可视化方案 2D
+let source = null;
 function onLoadAudio() {
-    var context = new window.AudioContext();
-    var analyser = context.createAnalyser();
-    analyser.fftSize = 256;
-    var source = context.createMediaElementSource(audio);
+  console.log(source);
+  var context = new window.AudioContext();
+  var analyser = context.createAnalyser();
+  analyser.fftSize = 256;
+  if (source != null) {
+    source.disconnect();
+    console.log("节点已断开");
+  }
+  let newSource = context.createMediaElementSource(audio);
+  source = newSource;
+  source.connect(analyser);
+  analyser.connect(context.destination);
+  var bufferLength = analyser.frequencyBinCount;
+  var dataArray = new Uint8Array(bufferLength);
+  var canvas = document.getElementById("canvas");
+  canvas.width = window.innerWidth - 20;
+  canvas.height = window.innerHeight;
 
-    source.connect(analyser);
-    analyser.connect(context.destination);
+  var ctx = canvas.getContext("2d");
+  var WIDTH = canvas.width;
+  var HEIGHT = canvas.height;
 
-    var bufferLength = analyser.frequencyBinCount;
-    var dataArray = new Uint8Array(bufferLength);
+  var barWidth = (WIDTH / bufferLength) * 1.5;
+  var barHeight;
 
-    var canvas = document.getElementById("canvas");
-    canvas.width = window.innerWidth-20;
-    canvas.height = window.innerHeight;
+  function renderFrame() {
+    requestAnimationFrame(renderFrame);
 
-    var ctx = canvas.getContext("2d");
-    var WIDTH = canvas.width;
-    var HEIGHT = canvas.height;
+    analyser.getByteFrequencyData(dataArray);
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
 
-    var barWidth = WIDTH / bufferLength * 1.5;
-    var barHeight;
+    for (var i = 0, x = 0; i < bufferLength; i++) {
+      barHeight = dataArray[i];
 
-    function renderFrame() {
-        requestAnimationFrame(renderFrame);
+      var r = barHeight + 10 * (i / bufferLength);
+      var g = 200 * (i / bufferLength);
+      var b = 100;
 
-        analyser.getByteFrequencyData(dataArray);
-        ctx.clearRect(0, 0, WIDTH, HEIGHT);
+      ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+      ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
 
-        for (var i = 0, x = 0; i < bufferLength; i++) {
-            barHeight = dataArray[i];
-
-            var r = barHeight + 10 * (i / bufferLength);
-            var g = 200 * (i / bufferLength);
-            var b = 100;
-
-            ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-            ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
-
-            x += barWidth + 2;
-        }
+      x += barWidth + 2;
     }
-
-    renderFrame();
-    
+  }
+  renderFrame();
 }
-
-
 
 let i = 0;
 function playModel() {
@@ -488,7 +490,7 @@ const form = doc.querySelector("#form");
 form.addEventListener("submit", (ev) => {
   ev.preventDefault();
   // 自己发请求
-  console.log('即将清除计时器编号为' + timeId)
+  console.log("即将清除计时器编号为" + timeId);
   window.clearTimeout(timeId);
   curSongIndex = 0;
   render(songsList[curSongIndex]);
@@ -513,26 +515,26 @@ Object.defineProperty(HTMLFormElement.prototype, "jsondata", {
 // 发请求，搜索功能
 function sendSearchRequest() {
   const searchSinger =
-    "https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/search?keywords=" + form.jsondata.search;
+    "https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/search?keywords=" +
+    form.jsondata.search;
   const request5 = new XMLHttpRequest();
   request5.open("GET", searchSinger);
   request5.responseType = "json";
   request5.send();
   request5.onload = function () {
     const searchId = request5.response;
-    if (searchId["result"]["songs"][0]["artists"].find((currentValue) =>{
-      if(form.jsondata.search === currentValue["name"]){
-        ids = currentValue["id"];
-      }
+    if (
+      searchId["result"]["songs"][0]["artists"].find((currentValue) => {
+        if (form.jsondata.search === currentValue["name"]) {
+          ids = currentValue["id"];
+        }
         return form.jsondata.search === currentValue["name"];
-    }))
-     {
+      })
+    ) {
       hitsong(ids);
       timeId = setTimeout(_seekMusic(top50result1), 5000);
-      console.log('计时器编号为' + timeId)
-      alert(
-        "找到啦！"
-      );
+      console.log("计时器编号为" + timeId);
+      alert("找到啦！");
     } else {
       alert("找不到" + form.jsondata.search + "，再试试其他歌手");
     }
@@ -588,15 +590,14 @@ window.alert = function (msg) {
   };
 };
 
-
 // 背景色提取
-const firstPage = doc.querySelector('#first-page');//首页的dom
+const firstPage = doc.querySelector("#first-page"); //首页的dom
 // 创建一个 Image 对象（在文件开头声明）
 // 当图像加载完成时执行回调函数
-image.onload = function() {
+image.onload = function () {
   // 创建一个 Canvas 元素
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
 
   // 将图像绘制到 Canvas 上
   canvas.width = image.width;
@@ -620,14 +621,15 @@ image.onload = function() {
     // 如果颜色已经出现过，次数加 1
     if (colorCounts[color]) {
       colorCounts[color]++;
-    } else { // 否则，将颜色加入对象中，次数为 1
+    } else {
+      // 否则，将颜色加入对象中，次数为 1
       colorCounts[color] = 1;
     }
   }
 
   // 找到出现次数最多的颜色
   let maxCount = 0;
-  let dominantColor = '';
+  let dominantColor = "";
   for (const color in colorCounts) {
     if (colorCounts[color] > maxCount) {
       maxCount = colorCounts[color];
@@ -636,6 +638,5 @@ image.onload = function() {
   }
 
   console.log(dominantColor);
-  firstPage.style.backgroundImage = `linear-gradient(${dominantColor} 10% ,45%, #fff 80% )`
-
-}
+  firstPage.style.backgroundImage = `linear-gradient(${dominantColor} 10% ,45%, #fff 80% )`;
+};

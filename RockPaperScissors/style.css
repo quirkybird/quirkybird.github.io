@@ -1,0 +1,43 @@
+h1{
+    text-align: center;
+}
+.paly_container{
+    width: 90vw;
+    height: 70vh;
+    background-color: #ccc;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+.select_box{
+    position:absolute;
+    width: 200px;
+    height: 100px;
+    left: 4vw;
+    bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid black;
+}
+.select_box img{
+    width: 60px;
+    
+}
+.select_box img:hover{
+    box-shadow: 2px 4px 10px #222;
+}
+.prompt{
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    font-size: larger;
+}
