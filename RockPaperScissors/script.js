@@ -10,7 +10,7 @@ let prompt = document.querySelector(".prompt");
 let playerImg = new Image();
 let cmptPlayerImg = new Image();
 let i = 0;
-playerImg.src = images[0];
+playerImg.src = "./images/Rock.png";
 player.appendChild(playerImg);
 cmptPlayerImg.src = "./images/Rock.png";
 cmptPlayer.appendChild(cmptPlayerImg);
