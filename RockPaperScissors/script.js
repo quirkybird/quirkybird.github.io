@@ -9,6 +9,8 @@ const cmptPlayer = document.querySelector(".cmpt_player");
 let prompt = document.querySelector(".prompt");
 let playerImg = new Image();
 let cmptPlayerImg = new Image();
+playerImg.style.width = '200px';
+cmptPlayerImg.style.width = '200px';
 let i = 0;
 playerImg.src = "./images/Rock.png";
 player.appendChild(playerImg);
