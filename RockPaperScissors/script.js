@@ -1,5 +1,5 @@
 const images = [
-  "./images/paper.png",
+  "./images/Paper.png",
   "./images/Rock.png",
   "./images/Scissors.png",
 ];
@@ -12,7 +12,6 @@ let cmptPlayerImg = new Image();
 let i = 0;
 playerImg.src = "./images/Rock.png";
 player.appendChild(playerImg);
-cmptPlayerImg.src = "./images/Rock.png";
 cmptPlayer.appendChild(cmptPlayerImg);
 cmptPlayer.style.transform = "rotate(-90deg)";
 function Paper(){
