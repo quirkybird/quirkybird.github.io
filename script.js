@@ -25,6 +25,9 @@ const now = doc.querySelector("#now"); //进度条实时
 const model = doc.querySelector("#mode"); //播放模式
 const comment = doc.querySelectorAll(".musicComment"); //评论
 
+//歌曲列表
+const songList = doc.querySelector('.songlist')
+let songListArray = new Array();
 // 创建一个 Image 对象
 let image = new Image();
 image.crossOrigin = "Anonymous";
@@ -121,6 +124,7 @@ function hitsong(ids) {
     "https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/artist/top/song?id=" +
     ids;
   let request3 = new XMLHttpRequest();
+  request3.crossOrigin = "Anonymous";
   request3.open("GET", authorTop50);
   request3.responseType = "json";
   request3.send();
@@ -135,7 +139,13 @@ function hitsong(ids) {
       top50result1[m] = top50List["songs"][m]["id"];
 
       console.log(top50List["songs"][m]["name"]);
+      songListArray[m] = top50List["songs"][m]["name"];
     }
+    let newList = '';
+    for(let i = 0; i < songListArray.length; i++){
+      newList += `${songListArray[i]}<br>`;
+      songList.innerHTML = newList;
+  }
     musicurl(top50result);
   };
 }
@@ -234,9 +244,14 @@ function init() {
 
 //按钮事件
 controls.addEventListener("click", (e) => {
-  switch (e.target?.id) {
+  switch (e.target.id) {
     case "list": //歌曲列表
-      //TODO
+    if(isAppear === false){
+      appear();
+    }
+    else{
+      disappear();
+    }
       break;
     case "voice": //声音开关
       voiceControl();
@@ -261,6 +276,8 @@ controls.addEventListener("click", (e) => {
     case "mode": //播放模式
       playModel();
       break;
+    case "add":
+      break;
     default:
       break;
   }
@@ -275,57 +292,6 @@ function render(song) {
   bgimg.style.backgroundSize = "cover";
   image.src = song.bgPath;
 }
-
-//音乐可视化方案 2D
-let source = null;
-function onLoadAudio() {
-  console.log(source);
-  var context = new window.AudioContext();
-  var analyser = context.createAnalyser();
-  analyser.fftSize = 256;
-  if (source != null) {
-    source.disconnect();
-    console.log("节点已断开");
-  }
-  let newSource = context.createMediaElementSource(audio);
-  source = newSource;
-  source.connect(analyser);
-  analyser.connect(context.destination);
-  var bufferLength = analyser.frequencyBinCount;
-  var dataArray = new Uint8Array(bufferLength);
-  var canvas = document.getElementById("canvas");
-  canvas.width = window.innerWidth - 20;
-  canvas.height = window.innerHeight;
-
-  var ctx = canvas.getContext("2d");
-  var WIDTH = canvas.width;
-  var HEIGHT = canvas.height;
-
-  var barWidth = (WIDTH / bufferLength) * 1.5;
-  var barHeight;
-
-  function renderFrame() {
-    requestAnimationFrame(renderFrame);
-
-    analyser.getByteFrequencyData(dataArray);
-    ctx.clearRect(0, 0, WIDTH, HEIGHT);
-
-    for (var i = 0, x = 0; i < bufferLength; i++) {
-      barHeight = dataArray[i];
-
-      var r = barHeight + 10 * (i / bufferLength);
-      var g = 200 * (i / bufferLength);
-      var b = 100;
-
-      ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-      ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
-
-      x += barWidth + 2;
-    }
-  }
-  renderFrame();
-}
-
 let i = 0;
 function playModel() {
   let modelicon = [
@@ -413,7 +379,6 @@ function songPlay() {
   playBtn.classList.add("icon-24gf-pause2");
   playBtn.classList.remove("icon-24gf-play");
   audio.play();
-  onLoadAudio();
 }
 //暂停
 function songPause() {
@@ -640,3 +605,16 @@ image.onload = function () {
   console.log(dominantColor);
   firstPage.style.backgroundImage = `linear-gradient(${dominantColor} 10% ,45%, #fff 80% )`;
 };
+
+//歌曲列表
+let isAppear = false;
+//打开歌曲列表
+function appear(){
+  isAppear = true;
+  songList.style.width = '200px';
+}
+//关闭歌曲列表
+function disappear(){
+  isAppear = false;
+  songList.style.width = 0;
+}

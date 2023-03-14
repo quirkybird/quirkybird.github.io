@@ -15,7 +15,7 @@ li{
   list-style: none;
 }
 body {
-  background: url("./images/paper.jpg");
+  background: url("./images/Paper.jpg");
   background-size: cover;
 }
 .clearfix::before,
@@ -125,13 +125,20 @@ body {
 #date {
   font-size: 25px;
 }
-/* .songlist{
-    width: 190px;
-    height: 280px;
+/* 歌曲列表 */
+.songlist{
+    width: 0;
+    height: 354px;
     background-color: #add5a2;
-    position: relative;
-    right: 30px;
-} */
+    position: absolute;
+    left: 0;
+    overflow:auto;
+    transition: width 1s;
+    /* 需要指定开始和结束状态值，过渡才会发生 */
+}
+#list:hover{
+  cursor: pointer;
+}
 
 .player {
   width: 480px;
@@ -230,11 +237,6 @@ body {
 .info .song-detail #author {
   letter-spacing: 1px;
 }
-
-.info .controls #navigation:hover {
-  color: #8abcd1;
-  transition: 0.5s;
-}
 .info .controls {
   margin-top: 20px;
   padding: 0 8px;
@@ -287,7 +289,7 @@ body {
   box-shadow: 5px 10px 20px #134857;
   border-radius: 25px;
   position: relative;
-  overflow: hidden;
+  overflow: auto;
 }
 #comment .musicComment img {
   display: block;
@@ -310,6 +312,6 @@ body {
 }
 #comment .musicComment .time {
   position: absolute;
-  bottom: 8px;
+  top: 37px;
   right: 15px;
 }
