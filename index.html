@@ -1,135 +1,88 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>雨世界音乐播放器</title>
-    <link rel="stylesheet" href="./style.css" />
-    <link rel="stylesheet" href="./icon/iconfont.css" />
-    <script src="./JS/Time.js"></script>
+    <meta charset="utf-8">
+    <title>麦克风可视化示例</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #212121;
+      }
+
+      #circle {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #fff;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        animation: pulse 1s ease-in-out alternate infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          filter: brightness(1);
+        }
+        50% {
+          transform: scale(1.2);
+          filter: brightness(1.5);
+        }
+        100% {
+          transform: scale(1);
+          filter: brightness(1);
+        }
+      }
+    </style>
   </head>
   <body>
-    <!-- 导航栏 -->
-    <!-- 导航 -->
-    <nav class="nav-bar clearfix">
-      <li class="iconfont icon-daohang2 nav"></li>
-    <!-- 搜索框 -->
-    <div class="search-box">
-      <form id="form">
-        <input
-          type="text"
-          name="search"
-          placeholder="邓丽君"
-          autocomplete="off"
-        />
-        <button type="submit"><i class="iconfont icon-sousuo"></i></button>
-      </form>
-    </div>
-    </nav>
-    <div id="first-page">
-      <!-- 时间条 -->
-      <div class="time-bar">
-        <div id="time"></div>
-        <div id="date"></div>
-      </div>
-      <div class="songlist"></div>
+    <div id="circle"></div>
+    <script>
+      const circle = document.getElementById('circle');
 
-      <div class="player">
-        <!--音乐插图 -->
-        <section class="img"></section>
-        <!-- 音乐信息 -->
-        <section class="info">
-          <!-- 进度条 -->
-          <div class="progress">
-            <div id="start"></div>
-            <div id="bar">
-              <div id="now"></div>
-            </div>
-            <div id="end"></div>
-          </div>
+      // 获取麦克风输入流
+      navigator.mediaDevices.getUserMedia({audio: true})
+        .then(function(stream) {
+          var audioContext = new AudioContext();
+          var source = audioContext.createMediaStreamSource(stream);
+          var analyser = audioContext.createAnalyser();
+          source.connect(analyser);
 
-          <!-- 歌曲信息 -->
-          <div class="song-detail">
-            <span id="title"></span>
-            <span id="author"></span>
-          </div>
+          // 设置分析参数
+          analyser.fftSize = 2048;
+          var bufferLength = analyser.frequencyBinCount;
+          var dataArray = new Uint8Array(bufferLength);
 
-          <!-- 按钮区 -->
-          <div id="controls" class="controls">
-            <span><i id="list" class="iconfont icon-daohang"></i></span>
-            <div class="play">
-              <span><i id="voice" class="iconfont icon-yinliang"></i></span>
-              <span><i id="pre" class="iconfont icon-shangyishou"></i></span>
-              <span><i id="play" class="iconfont icon-24gf-play"></i></span>
-              <span><i id="next" class="iconfont icon-xiayishou"></i></span>
-              <span><i id="mode" class="iconfont icon-shunxubofang"></i></span>
-            </div>
-            <span><i id="add" class="iconfont icon-tianjia"></i></span>
-          </div>
-        </section>
+          var circleSize = 50;
+          var hue = 0;
 
-        <!-- audio标签 -->
-        <section class="audio">
-          <audio id="audio" crossorigin="anonymous"></audio>
-        </section>
-      </div>
+          function renderFrame() {
+            requestAnimationFrame(renderFrame);
 
-       <!--音乐可视化 -->
-       <div id="audioViewContainer">
-        <canvas id="canvas"></canvas>
-      </div>
+            // 获取音频数据并计算得分
+            analyser.getByteFrequencyData(dataArray);
+            var score = 0;
+            for (var i = 0; i < dataArray.length; i++) {
+              score += dataArray[i] / bufferLength;
+            }
 
-    </div>
+            // 更新圆球大小和颜色
+            circleSize = Math.max(Math.min(score * 10, 500), 10);
+            hue = (hue + score * 0.2) % 360;
 
-    <!-- 评论展示 -->
-    <section id="comment">
-      <div class="musicComment">
-        <p></p>
-      </div>
-      <div class="musicComment">
-        <p></p>
-      </div>
-      <div class="musicComment">
-        <p></p>
-      </div>
-      <div class="musicComment">
-        <p></p>
-      </div>
-      <div class="musicComment">
-        <p></p>
-      </div>
-      <div class="musicComment">
-        <p></p>
-      </div>
-      <div class="musicComment">
-        <p></p>
-      </div>
-      <div class="musicComment">
-        <p></p>
-      </div>
-      <div class="musicComment">
-        <p></p>
-      </div>
-      <div class="musicComment">
-        <p></p>
-      </div>
-      <div class="musicComment">
-        <p></p>
-      </div>
-      <div class="musicComment">
-        <p></p>
-      </div>
-      <div class="musicComment">
-        <p></p>
-      </div>
-      <div class="musicComment">
-        <p></p>
-      </div>
-      <div class="musicComment">
-        <p></p>
-      </div>
-    </section>
+            circle.style.width = circleSize + 'px';
+            circle.style.height = circleSize + 'px';
+            circle.style.boxShadow = '0 0 ' + (score * 0.5 + 20) + 'px rgba(255, 255, 255, 0.8)';
+            circle.style.backgroundColor = 'hsl(' + hue + ', 70%, 50%)';
+          }
+          renderFrame();
+        })
+        .catch(function(err) {
+          console.log('获取麦克风失败：', err);
+        });
+    </script>
   </body>
-  <script src="./script.js"></script>
 </html>
