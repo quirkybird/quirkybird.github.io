@@ -35,7 +35,7 @@ image.crossOrigin = "Anonymous";
 //歌曲评论功能
 const MusicComment = function (x) {
   const comment21 =
-    "https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/comment/music?id=" +
+    "https://music.yamorz.top/comment/music?id=" +
     top50result1[x] +
     "&limit=21";
   const request4 = new XMLHttpRequest();
@@ -121,7 +121,7 @@ function hitsong(ids) {
     },
   ];
   const authorTop50 =
-    "https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/artist/top/song?id=" +
+    "https://music.yamorz.top/artist/top/song?id=" +
     ids;
   let request3 = new XMLHttpRequest();
   request3.crossOrigin = "Anonymous";
@@ -172,7 +172,7 @@ function seekMusic(loveList) {
 
 function musicurl(top50) {
   let musicurl =
-    "https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/song/url?id=" + top50;
+    "https://music.yamorz.top/song/url?id=" + top50;
   let request = new XMLHttpRequest();
   request.open("GET", musicurl);
   request.responseType = "json";
@@ -213,7 +213,7 @@ let addlovemusicdetials = function (lovemusic1) {
 };
 function musicDetials() {
   let musicDetials =
-    "https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/song/detail?ids=" +
+    "https://music.yamorz.top/song/detail?ids=" +
     songsNumbers;
   let request1 = new XMLHttpRequest();
   request1.open("GET", musicDetials);
@@ -480,7 +480,7 @@ Object.defineProperty(HTMLFormElement.prototype, "jsondata", {
 // 发请求，搜索功能
 function sendSearchRequest() {
   const searchSinger =
-    "https://cloudmusicapi-7vsg672j7-qinye233.vercel.app/search?keywords=" +
+    "https://music.yamorz.top/search?keywords=" +
     form.jsondata.search;
   const request5 = new XMLHttpRequest();
   request5.open("GET", searchSinger);
